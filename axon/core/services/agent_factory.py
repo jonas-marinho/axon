@@ -1,12 +1,7 @@
+from typing import Any, Dict, Union
 from pydantic import BaseModel, ValidationError
-from typing import Any, Dict, Callable
 
-# ---- Mock de chamada LLM (substituir depois) ----
-def call_llm(prompt: str) -> Dict[str, Any]:
-    # Simulação de resposta de um LLM
-    return {
-        "result": f"Resposta simulada para prompt: {prompt[:50]}..."
-    }
+from core.services.llm_provider import LLMProvider, MockLLMProvider
 
 
 class AgentRuntime:
@@ -17,15 +12,19 @@ class AgentRuntime:
         system_prompt: str,
         output_schema: Dict | None = None,
         tools: Dict | None = None,
+        llm: LLMProvider | None = None,
     ):
         self.name = name
         self.role = role
         self.system_prompt = system_prompt
         self.output_schema = output_schema
         self.tools = tools or {}
+        self.llm = llm or MockLLMProvider()
 
     def build_prompt(self, input_data: Dict[str, Any]) -> str:
-        return f"""Role: {self.role}
+        return f"""
+Role:
+{self.role}
 
 Instructions:
 {self.system_prompt}
@@ -36,7 +35,7 @@ Input:
 
     def execute(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
         prompt = self.build_prompt(input_data)
-        raw_output = call_llm(prompt)
+        raw_output = self.llm.call(prompt)
 
         if self.output_schema:
             try:
@@ -46,7 +45,7 @@ Input:
                 validated = OutputModel.parse_obj(raw_output)
                 return validated.__root__
             except ValidationError as e:
-                raise RuntimeError(f"Output inválido: {e}")
+                raise RuntimeError(f"Invalid output schema: {e}")
 
         return raw_output
 
@@ -60,4 +59,14 @@ class AgentFactory:
             system_prompt=agent_def["system_prompt"],
             output_schema=agent_def.get("output_schema"),
             tools=agent_def.get("tools_config"),
+        )
+
+    @staticmethod
+    def from_model(agent) -> AgentRuntime:
+        return AgentRuntime(
+            name=agent.name,
+            role=agent.role,
+            system_prompt=agent.system_prompt,
+            output_schema=agent.output_schema,
+            tools=agent.tools_config,
         )
