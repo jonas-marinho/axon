@@ -1,13 +1,19 @@
 from django.db import models
+from core.models.task import Task
 
 
-class Agent(models.Model):
+class Process(models.Model):
     name = models.CharField(max_length=255)
-    role = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
 
-    system_prompt = models.TextField()
-    tools_config = models.JSONField(null=True, blank=True)
-    output_schema = models.JSONField(null=True, blank=True)
+    entry_task = models.ForeignKey(
+        Task,
+        on_delete=models.PROTECT,
+        related_name="entry_for_process"
+    )
+
+    # JSON que define nós, edges, condições, etc
+    graph_definition = models.JSONField()
 
     is_active = models.BooleanField(default=True)
     version = models.PositiveIntegerField(default=1)
@@ -16,7 +22,7 @@ class Agent(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = "agent"
+        db_table = "process"
         unique_together = ("name", "version")
         indexes = [
             models.Index(fields=["name"]),
