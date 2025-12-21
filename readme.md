@@ -55,10 +55,21 @@ Um **Process** representa um **workflow orquestrado de Tasks**.
 
 Ele contém:
 - Um ponto de entrada (`entry_task`)
-- Um grafo de execução (`graph_definition`)
 - Versionamento e ativação
 
 📌 O Process **não contém lógica de execução** — apenas configuração.
+
+## Conceito de Workflow no Axon
+
+No Axon, o fluxo de execução é definido exclusivamente pelo Process.
+
+- Tasks representam unidades de execução
+- Agents executam Tasks
+- Processes orquestram Tasks através de Transitions
+- Transitions contêm condições declarativas avaliadas em runtime
+
+Isso permite reutilização de Tasks em múltiplos Processes,
+além de workflows dinâmicos e orientados a dados.
 
 ---
 
