@@ -12,9 +12,6 @@ class Process(models.Model):
         related_name="entry_for_process"
     )
 
-    # JSON que define nós, edges, condições, etc
-    graph_definition = models.JSONField()
-
     is_active = models.BooleanField(default=True)
     version = models.PositiveIntegerField(default=1)
 
