@@ -1,9 +1,10 @@
 django==6.0
 djangorestframework==3.16.1
-langchain==0.3.27
-langchain-core==0.3.75
-langgraph==1.0.1
+langchain==1.2.0
+langchain-core==1.2.4
+langchain-openai==1.1.6
+langgraph==1.0.5
 mysqlclient==2.2.7
-openai==1.107.2
+openai==2.14.0
 pydantic==2.11.9
 python-dotenv==1.1.1

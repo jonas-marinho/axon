@@ -5,6 +5,10 @@ class Agent(models.Model):
     name = models.CharField(max_length=255)
     role = models.CharField(max_length=255)
 
+    llm_config = models.JSONField(
+        default=dict,
+        help_text="Configuração do LLM (provider, model, params)"
+    )
     system_prompt = models.TextField()
     tools_config = models.JSONField(null=True, blank=True)
     output_schema = models.JSONField(null=True, blank=True)

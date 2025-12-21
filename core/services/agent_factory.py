@@ -16,6 +16,7 @@ class AgentFactory:
             name=agent_model.name,
             role=agent_model.role,
             system_prompt=agent_model.system_prompt,
+            llm_config=agent_model.llm_config,
             output_schema=agent_model.output_schema,
             tools_config=agent_model.tools_config,
         )
