@@ -1,72 +1,22 @@
-from typing import Any, Dict, Union
-from pydantic import BaseModel, ValidationError
-
-from core.services.llm_provider import LLMProvider, MockLLMProvider
-
-
-class AgentRuntime:
-    def __init__(
-        self,
-        name: str,
-        role: str,
-        system_prompt: str,
-        output_schema: Dict | None = None,
-        tools: Dict | None = None,
-        llm: LLMProvider | None = None,
-    ):
-        self.name = name
-        self.role = role
-        self.system_prompt = system_prompt
-        self.output_schema = output_schema
-        self.tools = tools or {}
-        self.llm = llm or MockLLMProvider()
-
-    def build_prompt(self, input_data: Dict[str, Any]) -> str:
-        return f"""
-Role:
-{self.role}
-
-Instructions:
-{self.system_prompt}
-
-Input:
-{input_data}
-"""
-
-    def execute(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
-        prompt = self.build_prompt(input_data)
-        raw_output = self.llm.call(prompt)
-
-        if self.output_schema:
-            try:
-                class OutputModel(BaseModel):
-                    __root__: Dict[str, Any]
-
-                validated = OutputModel.parse_obj(raw_output)
-                return validated.__root__
-            except ValidationError as e:
-                raise RuntimeError(f"Invalid output schema: {e}")
-
-        return raw_output
+from core.services.agent_runtime import AgentRuntime
 
 
 class AgentFactory:
-    @staticmethod
-    def from_dict(agent_def: Dict[str, Any]) -> AgentRuntime:
+    """
+    Responsável por criar instâncias executáveis de agentes
+    a partir de modelos persistidos no banco.
+    """
+
+    def create(self, agent_model):
+        """
+        Recebe um Agent (Django model) e retorna um AgentRuntime
+        """
+
         return AgentRuntime(
-            name=agent_def["name"],
-            role=agent_def["role"],
-            system_prompt=agent_def["system_prompt"],
-            output_schema=agent_def.get("output_schema"),
-            tools=agent_def.get("tools_config"),
+            name=agent_model.name,
+            role=agent_model.role,
+            system_prompt=agent_model.system_prompt,
+            output_schema=agent_model.output_schema,
+            tools_config=agent_model.tools_config,
         )
 
-    @staticmethod
-    def from_model(agent) -> AgentRuntime:
-        return AgentRuntime(
-            name=agent.name,
-            role=agent.role,
-            system_prompt=agent.system_prompt,
-            output_schema=agent.output_schema,
-            tools=agent.tools_config,
-        )
