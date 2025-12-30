@@ -1,6 +1,9 @@
 from typing import Dict, Any
 
+from django.utils import timezone
+
 from core.models import Process, Task
+from core.models import ProcessExecution, TaskExecution
 from core.services.agent_factory import AgentFactory
 from core.services.condition_evaluator import ConditionEvaluator
 # from core.services.graph_builder import GraphBuilder
@@ -25,17 +28,52 @@ class ProcessExecutor:
             "meta": {}
         }
 
+        process_execution = ProcessExecution.objects.create(
+            process=self.process,
+            input_payload=input_payload,
+            state=state,
+            status="running"
+        )
+
         current_task = self.process.entry_task
 
-        while current_task:
-            output = self._execute_task(current_task, state)
-            state["results"][current_task.name] = output
+        try:
+            while current_task:
+                task_execution = TaskExecution.objects.create(
+                    process_execution=process_execution,
+                    task=current_task,
+                    input_payload={}
+                )
 
-            current_task = self._get_next_task(
-                process=self.process,
-                current_task=current_task,
-                state=state
-            )
+                # Executa task
+                output = self._execute_task(current_task, state)
+
+                task_execution.output_payload = output
+                task_execution.status = "completed"
+                task_execution.finished_at = timezone.now()
+                task_execution.save()
+
+                # Atualiza state
+                state["results"][current_task.name] = output
+
+                current_task = self._get_next_task(
+                    self.process,
+                    current_task,
+                    state
+                )
+
+            process_execution.state = state
+            process_execution.status = "completed"
+            process_execution.finished_at = timezone.now()
+            process_execution.save()
+
+        except Exception as e:
+            process_execution.status = "failed"
+            process_execution.finished_at = timezone.now()
+            process_execution.state = state
+            process_execution.save()
+
+            raise e
 
         return state
 

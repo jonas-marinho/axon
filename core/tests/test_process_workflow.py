@@ -10,6 +10,7 @@ from core.models import (
     ProcessTransition
 )
 from core.services.process_executor import ProcessExecutor
+from core.models import ProcessExecution
 
 
 class ProcessFlowIntegrationTest(TestCase):
@@ -112,3 +113,10 @@ class ProcessFlowIntegrationTest(TestCase):
             "publish_copy" in executed_tasks
             or "revise_copy" in executed_tasks
         )
+
+        self.assertEqual(ProcessExecution.objects.count(), 1)
+
+        execution = ProcessExecution.objects.first()
+        self.assertEqual(execution.status, "completed")
+        self.assertGreaterEqual(execution.task_executions.count(), 1)
+        return
