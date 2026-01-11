@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',  # JWT Authentication
     'core'
 ]
 
@@ -122,4 +124,46 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = '/home/server/axon/static/'
+
+
+# REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+
+# Simple JWT Configuration
+SIMPLE_JWT = {
+    # Token expira em 24 horas
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),
+    
+    # Refresh token expira em 7 dias
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    
+    # Permite rotação de refresh tokens (gera novo ao usar)
+    'ROTATE_REFRESH_TOKENS': True,
+    
+    # Blacklist o token antigo após rotação
+    'BLACKLIST_AFTER_ROTATION': True,
+    
+    # Algoritmo de assinatura
+    'ALGORITHM': 'HS256',
+    
+    # Usa a SECRET_KEY do Django
+    'SIGNING_KEY': SECRET_KEY,
+    
+    # Prefixo do header Authorization
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    
+    # Nome do campo do user no token
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    
+    # Claims customizados (você pode adicionar mais)
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
