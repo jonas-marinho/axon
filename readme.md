@@ -1,252 +1,346 @@
 # Axon
 
-Axon é um **engine de orquestração de agentes de IA** orientado a dados, cujo objetivo principal é permitir a **criação, edição e execução de agentes e processos sem alteração de código**.
+**Axon** é um motor de orquestração de agentes de IA orientado a dados, projetado para permitir a criação, edição e execução de workflows de agentes **sem alteração de código**.
 
-Este README descreve os **conceitos fundamentais**, a **modelagem de dados**, a relação com **LangChain / LangGraph**, as **premissas arquiteturais** e um **guia prático de uso**.
+## 🎯 O que é o Axon?
 
----
+Imagine que você precisa criar um fluxo de trabalho onde um agente de IA:
+1. Analisa um documento de requisitos de um cliente
+2. Extrai as informações principais e avalia a complexidade
+3. Se a complexidade for baixa (≤ 3), gera automaticamente uma proposta técnica
+4. Se for alta (> 3), encaminha para um especialista revisar os requisitos
 
-## 🎯 Objetivo do Axon
+Com Axon, você **define esse fluxo inteiro no banco de dados** — incluindo os agentes, as tarefas, as condições e as transições. Nenhuma linha de código precisa ser modificada para criar ou alterar esse comportamento.
 
-> Permitir que agentes de IA sejam definidos, versionados, organizados e orquestrados **via banco de dados**, sendo executados por processos configuráveis e expostos via API.
+## 🧩 Como funciona?
 
-O Axon **não é um chatbot** e **não é um wrapper de LLM**.
+### Arquitetura Conceitual
 
-Ele é:
-- Um **motor de execução de workflows de agentes**
-- Data-driven (configuração > código)
-- Plugável a qualquer LLM
-- Preparado para escala, observabilidade e execução assíncrona
+O Axon organiza a execução de agentes em 4 camadas principais:
 
----
+![Arquitetura Conceitual do Axon](./docs/architecture-diagram.svg)
 
-## 🧠 Conceitos Fundamentais
+### Componentes Principais
 
-### Agent
+#### 1. **Agent** — A Definição da Inteligência
 
-Um **Agent** representa uma entidade inteligente responsável por executar uma tarefa específica.
+Um Agent é uma configuração que define **como** um agente de IA deve se comportar:
 
-Ele define:
-- Um papel (`role`)
-- Um prompt base (`system_prompt`)
-- Um schema de saída opcional
-- Configuração de ferramentas (futuro)
-
-📌 **O Agent não executa nada sozinho**. Ele é apenas uma definição.
-
----
-
-### Task
-
-Uma **Task** é o elo entre um **Process** e um **Agent**.
-
-Ela define:
-- Qual agente será executado
-- Como os dados entram no agente (`input_mapping`)
-- Como o resultado volta para o estado global (`output_mapping`)
-
-📌 A mesma Task pode ser reutilizada em múltiplos processos.
-
----
-
-### Process
-
-Um **Process** representa um **workflow orquestrado de Tasks**.
-
-Ele contém:
-- Um ponto de entrada (`entry_task`)
-- Versionamento e ativação
-
-📌 O Process **não contém lógica de execução** — apenas configuração.
-
-## Conceito de Workflow no Axon
-
-No Axon, o fluxo de execução é definido exclusivamente pelo Process.
-
-- Tasks representam unidades de execução
-- Agents executam Tasks
-- Processes orquestram Tasks através de Transitions
-- Transitions contêm condições declarativas avaliadas em runtime
-
-Isso permite reutilização de Tasks em múltiplos Processes,
-além de workflows dinâmicos e orientados a dados.
-
----
-
-## 🔗 Relacionamento entre Models
-
-```
-Agent
-  └── Task (N)
-
-Task
-  └── Agent (1)
-
-Process
-  └── entry_task → Task
-  └── graph_definition → referencia Tasks por ID
+```python
+Agent.objects.create(
+    name="RequirementsAnalyzer",
+    role="Technical Analyst",
+    system_prompt="Você é um analista técnico especializado em extrair e avaliar requisitos de projetos de software.",
+    llm_config={
+        "provider": "openai",
+        "model": "gpt-4",
+        "temperature": 0.3
+    },
+    output_schema={
+        "requirements": "array",
+        "complexity": "number",
+        "summary": "string"
+    }
+)
 ```
 
-O grafo é a fonte de verdade da orquestração.
+**Importante**: Um Agent é apenas uma definição — ele não executa nada sozinho.
 
----
+#### 2. **Task** — A Unidade de Execução
 
-## 🧩 Relação com LangChain e LangGraph
+Uma Task conecta um Agent a um contexto de execução específico:
 
-Axon **não reimplementa** LangChain — ele o **orquestra**.
+```python
+Task.objects.create(
+    name="analyze_requirements",
+    agent=requirements_analyzer,
+    input_mapping={
+        "document": "input.document"  # Pega do input inicial
+    },
+    output_mapping={}  # Usa saída padrão
+)
+```
 
-### Onde LangChain entra
+**Mapeamento de Dados**:
+- `input_mapping`: Define como os dados do estado global são passados para o agent
+- `output_mapping`: Define como a saída do agent é estruturada no estado
 
-- Execução de agentes
-- Prompt templates
-- Integração com LLMs
+#### 3. **Process** — O Workflow Orquestrado
 
-### Onde LangGraph entra
+Um Process define o fluxo de execução completo:
 
-- Execução de grafos
-- Controle de fluxo
-- Encadeamento e paralelismo
+```python
+process = Process.objects.create(
+    name="ProposalGenerationProcess",
+    entry_task=analyze_requirements  # Por onde começar
+)
+```
 
-### Papel do Axon
+#### 4. **ProcessTransition** — As Rotas Condicionais
 
-| Camada | Responsabilidade |
-|------|------------------|
-| Axon Models | Definição e persistência |
-| AgentFactory | Construção de agentes LangChain |
-| GraphBuilder | Construção do grafo LangGraph |
-| ProcessExecutor | Orquestração completa |
+Transitions definem **quando** e **para onde** o fluxo deve ir:
 
-📌 Axon atua como **camada de domínio e runtime** sobre LangChain.
+```python
+# Se complexidade <= 3 → gera proposta automaticamente
+ProcessTransition.objects.create(
+    process=process,
+    from_task=analyze_requirements,
+    to_task=generate_proposal,
+    condition="results.analyze_requirements.complexity <= 3",
+    order=1
+)
 
----
+# Se complexidade > 3 → encaminha para especialista
+ProcessTransition.objects.create(
+    process=process,
+    from_task=analyze_requirements,
+    to_task=escalate_to_specialist,
+    condition="results.analyze_requirements.complexity > 3",
+    order=2
+)
+```
 
-## 🧠 Premissas Arquiteturais
+### Fluxo de Execução
 
-Estas premissas **não devem ser quebradas**:
+Quando você executa um processo:
 
-1. **Models não executam lógica**
-2. **Execução acontece apenas em services**
-3. **Processos são data-driven**
-4. **Estado é explícito e serializável**
-5. **Versionamento é obrigatório**
+```python
+executor = ProcessExecutor("ProposalGenerationProcess")
+result = executor.execute(
+    input_payload={
+        "document": "Cliente precisa de um sistema de gerenciamento de estoque..."
+    }
+)
+```
 
-Essas decisões permitem:
-- Replay de execuções
-- Auditoria
-- Evolução sem breaking changes
+Internamente, o Axon:
 
----
+1. **Carrega o Process** do banco de dados
+2. **Inicia pela entry_task** (analyze_requirements)
+3. **Resolve o input_mapping** para construir o input do agent
+4. **Executa o Agent** através do LLM configurado
+5. **Armazena o resultado** no estado global
+6. **Avalia as transitions** para determinar a próxima task
+7. **Repete o processo** até não haver mais transições válidas
+8. **Persiste toda a execução** para auditoria e análise
+
+### Estado Global
+
+Durante a execução, o Axon mantém um estado compartilhado:
+
+```json
+{
+  "input": {
+    "document": "Cliente precisa de um sistema de gerenciamento de estoque..."
+  },
+  "results": {
+    "analyze_requirements": {
+      "requirements": [
+        "Controle de entrada e saída",
+        "Relatórios em tempo real",
+        "Integração com ERP"
+      ],
+      "complexity": 5,
+      "summary": "Sistema de média complexidade com integrações"
+    },
+    "escalate_to_specialist": {
+      "status": "escalated",
+      "specialist_id": "SP-001"
+    }
+  },
+  "meta": {}
+}
+```
+
+Esse estado é:
+- **Serializável**: Pode ser salvo e recuperado
+- **Rastreável**: Histórico completo de execução
+- **Compartilhado**: Todas as tasks acessam o mesmo estado
+
+## 🔧 Integração com LangChain/LangGraph
+
+O Axon **não reimplementa** funcionalidades de LLM — ele **orquestra** ferramentas existentes:
+
+| Camada | Responsabilidade | Tecnologia |
+|--------|------------------|------------|
+| Definição de Agentes | Models Django | Django ORM |
+| Criação de Runtimes | AgentFactory | Python |
+| Execução de Agentes | AgentRuntime | LangChain |
+| Orquestração | ProcessExecutor | Python + Transitions |
+| Construção de Grafos | GraphBuilder | LangGraph (futuro) |
+
+## 📊 Rastreabilidade e Auditoria
+
+Toda execução é persistida:
+
+```python
+ProcessExecution  # Registro completo da execução
+  ├── input_payload
+  ├── state (estado final)
+  ├── status (running/completed/failed)
+  └── TaskExecution[] (histórico de cada task)
+        ├── input_payload
+        ├── output_payload
+        ├── started_at
+        └── finished_at
+```
+
+Isso permite:
+- **Replay** de execuções
+- **Debugging** de fluxos complexos
+- **Análise** de performance
+- **Auditoria** completa
+
+## 🚀 API REST
+
+Execute processos via HTTP:
+
+```bash
+POST /api/v1/processes/1/execute/
+{
+  "document": "Cliente precisa de um sistema de gerenciamento de estoque com integração ERP..."
+}
+```
+
+Consulte execuções:
+
+```bash
+GET /api/v1/processes/1/executions/
+GET /api/v1/executions/123/
+GET /api/v1/executions/123/tasks/
+```
+
+## 💡 Princípios de Design
+
+### 1. **Data-Driven**
+Comportamento é configuração, não código.
+
+### 2. **Separation of Concerns**
+- Models: Definição e persistência
+- Services: Lógica de execução
+- API: Interface externa
+
+### 3. **Versionamento**
+Agents e Processes são versionados — mudanças não quebram execuções anteriores.
+
+### 4. **Estado Explícito**
+Todo estado é serializável e rastreável.
+
+### 5. **Composição**
+Tasks e Agents são reutilizáveis em múltiplos processos.
 
 ## 🗂️ Estrutura do Projeto
 
 ```
 axon/
 ├── core/
-│   ├── models/
+│   ├── models/              # Definições de dados
 │   │   ├── agent.py
 │   │   ├── task.py
-│   │   └── process.py
-│   └── services/
-│       ├── agent_factory.py
-│       ├── graph_builder.py
-│       └── process_executor.py
+│   │   ├── process.py
+│   │   ├── process_transition.py
+│   │   ├── process_execution.py
+│   │   └── task_execution.py
+│   │
+│   ├── services/            # Lógica de execução
+│   │   ├── agent_factory.py
+│   │   ├── agent_runtime.py
+│   │   ├── process_executor.py
+│   │   ├── condition_evaluator.py
+│   │   ├── mapping_resolver.py
+│   │   └── llm_provider.py
+│   │
+│   └── api/                 # Interface HTTP
+│       ├── views.py
+│       ├── serializers.py
+│       └── urls.py
+│
+├── settings.py
+├── urls.py
+└── manage.py
 ```
 
----
+## 🎯 Casos de Uso
 
-## ▶️ Fluxo de Execução
+### Workflows de Conteúdo
+- Geração → Revisão → Publicação
+- Criação → Validação de qualidade → Distribuição
 
-1. API chama `ProcessExecutor.execute()`
-2. Process é carregado do banco
-3. Tasks são resolvidas
-4. Grafo é construído
-5. Agentes são executados
-6. Resultado final é retornado
+### Processamento de Dados
+- Extração → Classificação → Enriquecimento
+- Análise → Decisão → Ação
 
-```
-API → ProcessExecutor → GraphBuilder → AgentFactory → LLM
-```
+### Automação de Negócios
+- Triagem de tickets → Roteamento → Resolução
+- Análise de leads → Qualificação → Encaminhamento
 
----
+## 🛠️ Tecnologias
 
-## 🧪 Exemplo Prático de Uso
+- **Django 6.0**: Framework web e ORM
+- **LangChain**: Integração com LLMs
+- **LangGraph**: Orquestração de grafos (futuro)
+- **MySQL**: Persistência
+- **Django REST Framework**: API
 
-### 1️⃣ Criar um Agent
+## 📦 Instalação
 
-```python
-Agent.objects.create(
-    name="Copywriter",
-    role="Marketing Specialist",
-    system_prompt="Crie textos persuasivos"
-)
-```
+```bash
+# Clone o repositório
+git clone [url-do-repo]
 
----
+# Configure o ambiente
+cp .env.example .env
+# Edite .env com suas credenciais
 
-### 2️⃣ Criar uma Task
+# Instale dependências
+pip install -r requirements.txt
 
-```python
-Task.objects.create(
-    name="generate_copy",
-    agent=agent
-)
-```
+# Execute migrações
+python manage.py migrate
 
----
-
-### 3️⃣ Criar um Process
-
-```python
-Process.objects.create(
-    name="marketing_process",
-    entry_task=task,
-    graph_definition={
-        "nodes": {
-            "start": {"task_id": task.id}
-        },
-        "edges": []
-    }
-)
+# Inicie o servidor
+python manage.py runserver
 ```
 
----
+## 🧪 Testes
 
-### 4️⃣ Executar
-
-```python
-executor = ProcessExecutor()
-
-result = executor.execute(
-    process_name="marketing_process",
-    input_payload={"product": "Curso de Python"}
-)
+```bash
+python manage.py test core.tests.test_process_workflow
 ```
 
+## 🔮 Roadmap
+
+- [ ] Interface web para configuração visual
+- [ ] Suporte a execução assíncrona (Celery)
+- [ ] Observabilidade avançada (traces, métricas)
+- [ ] Suporte a múltiplos LLM providers
+- [ ] Sistema de plugins para ferramentas customizadas
+- [ ] Editor visual de workflows
+- [ ] Templates de processos comuns
+
+## 📝 Filosofia
+
+> **"Código define capacidades. Banco de dados define comportamento."**
+
+O Axon existe para que você nunca precise alterar código para mudar como seus agentes funcionam. Toda a inteligência do negócio vive nos dados, não no código-fonte.
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **MIT License** - veja o arquivo [./license.txt](LICENSE) para mais detalhes.
+
+A licença MIT permite que você:
+- ✅ Use o software comercialmente
+- ✅ Modifique o código
+- ✅ Distribua cópias
+- ✅ Use de forma privada
+- ✅ Integre em projetos proprietários
+
+**Única exigência**: Manter o aviso de copyright e a licença em todas as cópias.
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Por favor, abra uma issue antes de criar um PR para discussão.
+
 ---
 
-## 🚀 O que o Axon já é
-
-- Engine de agentes
-- Orquestrador de workflows
-- Configurável via banco
-- Pronto para API
-- Pronto para UI
-
----
-
-## 🧭 Próximos Passos
-
-- API REST
-- Persistência de execuções
-- Execução assíncrona
-- Observabilidade
-- UI de configuração
-
----
-
-## 📌 Filosofia Final
-
-> **Código define capacidades. Banco define comportamento.**
-
-Axon existe para garantir que você **nunca precise alterar código para mudar o comportamento dos agentes**.
-
+**Axon** — Orquestração de agentes de IA orientada a dados.

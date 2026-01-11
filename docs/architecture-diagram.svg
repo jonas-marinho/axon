@@ -1,0 +1,126 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="processGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tasksGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="agentsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="llmGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#43e97b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38f9d7;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#2d3748">
+    Arquitetura Conceitual do Axon
+  </text>
+  
+  <!-- Process Layer -->
+  <g filter="url(#shadow)">
+    <rect x="150" y="90" width="500" height="90" rx="10" fill="url(#processGradient)"/>
+    <text x="400" y="125" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="white">
+      Process
+    </text>
+    <text x="400" y="150" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white" opacity="0.95">
+      Orquestra o workflow
+    </text>
+    <text x="400" y="168" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white" opacity="0.85">
+      (define o fluxo: início, transições, condições)
+    </text>
+  </g>
+  
+  <!-- Arrow 1 -->
+  <g opacity="0.7">
+    <line x1="400" y1="180" x2="400" y2="220" stroke="#4a5568" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="400,225 395,215 405,215" fill="#4a5568"/>
+  </g>
+  
+  <!-- Tasks Layer -->
+  <g filter="url(#shadow)">
+    <rect x="150" y="230" width="500" height="90" rx="10" fill="url(#tasksGradient)"/>
+    <text x="400" y="265" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="white">
+      Tasks
+    </text>
+    <text x="400" y="290" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white" opacity="0.95">
+      Unidades de execução
+    </text>
+    <text x="400" y="308" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white" opacity="0.85">
+      (conectam processos aos agentes)
+    </text>
+  </g>
+  
+  <!-- Arrow 2 -->
+  <g opacity="0.7">
+    <line x1="400" y1="320" x2="400" y2="360" stroke="#4a5568" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="400,365 395,355 405,355" fill="#4a5568"/>
+  </g>
+  
+  <!-- Agents Layer -->
+  <g filter="url(#shadow)">
+    <rect x="150" y="370" width="500" height="90" rx="10" fill="url(#agentsGradient)"/>
+    <text x="400" y="405" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="white">
+      Agents
+    </text>
+    <text x="400" y="430" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white" opacity="0.95">
+      Definições de IA
+    </text>
+    <text x="400" y="448" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white" opacity="0.85">
+      (configuram LLM, prompts, schemas de saída)
+    </text>
+  </g>
+  
+  <!-- Arrow 3 -->
+  <g opacity="0.7">
+    <line x1="400" y1="460" x2="400" y2="500" stroke="#4a5568" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="400,505 395,495 405,495" fill="#4a5568"/>
+  </g>
+  
+  <!-- LLM Provider Layer -->
+  <g filter="url(#shadow)">
+    <rect x="150" y="510" width="500" height="70" rx="10" fill="url(#llmGradient)"/>
+    <text x="400" y="540" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="white">
+      LLM Provider
+    </text>
+    <text x="400" y="565" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white" opacity="0.95">
+      Execução real (OpenAI, Anthropic, etc.)
+    </text>
+  </g>
+  
+  <!-- Side labels -->
+  <text x="120" y="135" font-family="Arial, sans-serif" font-size="16" text-anchor="end" fill="#718096" font-weight="bold">
+    1
+  </text>
+  <text x="120" y="275" font-family="Arial, sans-serif" font-size="16" text-anchor="end" fill="#718096" font-weight="bold">
+    2
+  </text>
+  <text x="120" y="415" font-family="Arial, sans-serif" font-size="16" text-anchor="end" fill="#718096" font-weight="bold">
+    3
+  </text>
+  <text x="120" y="545" font-family="Arial, sans-serif" font-size="16" text-anchor="end" fill="#718096" font-weight="bold">
+    4
+  </text>
+</svg>
