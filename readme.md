@@ -326,7 +326,7 @@ O Axon existe para que você nunca precise alterar código para mudar como seus 
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a **MIT License** - veja o arquivo [./license.txt](LICENSE) para mais detalhes.
+Este projeto está licenciado sob a **MIT License** - veja o arquivo [license.txt](./license.txt) para mais detalhes.
 
 A licença MIT permite que você:
 - ✅ Use o software comercialmente
