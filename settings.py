@@ -11,14 +11,13 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
-from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
 load_dotenv() # Carrega as variáveis do arquivo .env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_simplejwt',  # JWT Authentication
     'core'
 ]
 
@@ -124,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = f'{BASE_DIR}/static/'
 
 
 # REST Framework Configuration
@@ -141,29 +140,68 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     # Token expira em 24 horas
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),
-    
+
     # Refresh token expira em 7 dias
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    
+
     # Permite rotação de refresh tokens (gera novo ao usar)
     'ROTATE_REFRESH_TOKENS': True,
-    
+
     # Blacklist o token antigo após rotação
     'BLACKLIST_AFTER_ROTATION': True,
-    
+
     # Algoritmo de assinatura
     'ALGORITHM': 'HS256',
-    
+
     # Usa a SECRET_KEY do Django
     'SIGNING_KEY': SECRET_KEY,
-    
+
     # Prefixo do header Authorization
     'AUTH_HEADER_TYPES': ('Bearer',),
-    
+
     # Nome do campo do user no token
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
-    
+
     # Claims customizados (você pode adicionar mais)
     'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
+# Logging Configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}] {asctime} - {name} - {message}',
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'maxBytes': 1024 * 1024 * 10,  # 10MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['file', 'console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
 }
