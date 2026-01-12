@@ -124,6 +124,49 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = f'{BASE_DIR}/static/'
 
+
+# REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+
+# Simple JWT Configuration
+SIMPLE_JWT = {
+    # Token expira em 24 horas
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),
+
+    # Refresh token expira em 7 dias
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+
+    # Permite rotação de refresh tokens (gera novo ao usar)
+    'ROTATE_REFRESH_TOKENS': True,
+
+    # Blacklist o token antigo após rotação
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    # Algoritmo de assinatura
+    'ALGORITHM': 'HS256',
+
+    # Usa a SECRET_KEY do Django
+    'SIGNING_KEY': SECRET_KEY,
+
+    # Prefixo do header Authorization
+    'AUTH_HEADER_TYPES': ('Bearer',),
+
+    # Nome do campo do user no token
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    # Claims customizados (você pode adicionar mais)
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
 # Logging Configuration
 LOGGING = {
     'version': 1,
