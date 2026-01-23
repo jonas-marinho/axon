@@ -1,6 +1,7 @@
 import json
 import logging
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import HumanMessage
 from core.services.llm_provider import LLMProvider
 
 logger = logging.getLogger(__name__)
@@ -41,13 +42,25 @@ class AgentRuntime:
             raise
 
     def run(self, input_payload: dict) -> dict:
+        """
+        Executa o agente detectando automaticamente se há imagens.
+        
+        input_payload pode conter:
+        - Texto: {"product": "Curso Python"}
+        - Com imagens: {
+            "text": "Analise esta imagem",
+            "images": [{"data": "base64", "media_type": "image/jpeg"}]
+          }
+        - Base64 direto: {"image": "base64_string"}
+        """
+        has_images = self._detect_images(input_payload)
         logger.info(f"--- Iniciando execução do agent '{self.name}' ---")
         logger.debug(f"Input payload recebido: {input_payload}")
         
         # Constrói mensagens
         logger.debug("Construindo mensagens para o LLM")
         try:
-            messages = self._build_messages(input_payload)
+            messages = self._build_messages(input_payload, has_images)
             logger.debug(f"Total de mensagens construídas: {len(messages)}")
             for idx, msg in enumerate(messages, 1):
                 logger.debug(f"Mensagem {idx}: Tipo={type(msg).__name__}, Conteúdo preview={str(msg)[:100]}...")
@@ -92,12 +105,32 @@ class AgentRuntime:
             logger.info(f"Agent '{self.name}' executado com sucesso - Retornando texto puro")
             return result
 
-    def _build_messages(self, input_payload):
+    def _build_messages(self, input_payload, has_images):
         logger.debug("Montando template de mensagens")
+        content = []
+        # Adiciona as imagens, se houver
+        if has_images:
+            images = self._extract_images(input_payload)
+            for image in images:
+                content.append({
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:{image['media_type']};base64,{image['data']}"
+                    }
+                })
         
+        # System prompt
+        system_text = f"Atue como {self.role}. {self.system_prompt}"
+        # Extrair o texto
+        user_text = self._extract_text(input_payload)
+        # Construir as mensagens
+        content.append({
+            "type": "text",
+            "text": user_text
+        })
         messages = [
-            ("system", "Atue como {role}. {system_prompt}"),
-            ("human", "{input_payload}")
+            ("system", system_text),
+            HumanMessage(content=content)
         ]
         logger.debug(f"Template base criado com {len(messages)} mensagens")
         
@@ -186,3 +219,55 @@ class AgentRuntime:
                 "raw_output": content,
                 "error_message": str(e)
             }
+    
+    def _detect_images(self, payload: dict) -> bool:
+        """
+        Detecta se o payload contém imagens em qualquer formato.
+        """
+        # Formato estruturado: {"images": [...]}
+        if "images" in payload and payload["images"]:
+            return True
+        
+        # Formato direto: {"image": "base64..."}
+        if "image" in payload and isinstance(payload["image"], str):
+            # Verifica se parece com base64 (string longa sem espaços)
+            if len(payload["image"]) > 100 and " " not in payload["image"]:
+                return True
+        
+        return False
+
+    def _extract_text(self, payload: dict) -> str:
+        """
+        Extrai o texto do payload, ignorando as imagens.
+        """
+        text_parts = []
+        
+        for key, value in payload.items():
+            if key in ["images", "image"]:
+                continue
+            
+            if isinstance(value, str):
+                text_parts.append(f"{key}: {value}")
+            else:
+                text_parts.append(f"{key}: {str(value)}")
+        
+        return "\n".join(text_parts) if text_parts else "Analise o conteúdo fornecido"
+        
+    def _extract_images(self, payload: dict) -> list:
+        """
+        Extrai imagens do payload em qualquer formato.
+        """
+        images = []
+        
+        # Formato estruturado: {"images": [...]}
+        if "images" in payload and isinstance(payload["images"], list):
+            images.extend(payload["images"])
+        
+        # Formato direto: {"image": "base64"}
+        elif "image" in payload and isinstance(payload["image"], str):
+            images.append({
+                "data": payload["image"],
+                "media_type": "image/jpeg"  # Assume JPEG por padrão
+            })
+        
+        return images
