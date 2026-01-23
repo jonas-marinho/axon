@@ -57,11 +57,7 @@ class AgentRuntime:
 
         # Invoca LLM
         logger.info(f"Invocando LLM para agent '{self.name}'")
-        logger.debug(f"Modelo configurado: {self.llm.model_name if hasattr(self.llm, 'model_name') else 'N/A'}")
-        
-        
-        logger.info(f"TEMP: {messages}")
-        
+        logger.debug(f"Modelo configurado: {self.llm.model_name if hasattr(self.llm, 'model_name') else 'N/A'}") 
         
         try:
             response = self.llm.invoke(messages)
