@@ -1,0 +1,1936 @@
+[WARNING] 2026-01-16 10:56:44 - django.request - Method Not Allowed: /api/v1/processes/2/execute/
+[INFO] 2026-01-16 10:57:14 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:00:49 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:00:49 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:00:49 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:00:49 - core.services.process_executor - ProcessExecution criado - ID: 10, Status: running
+[INFO] 2026-01-16 11:00:49 - core.services.process_executor - --- Executando Task #1: 'Enriquecer descrição de produto' (ID: 2) ---
+[INFO] 2026-01-16 11:00:50 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:01:04 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:01:04 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:01:04 - core.services.process_executor - Task 'Enriquecer descrição de produto' executada com sucesso
+[INFO] 2026-01-16 11:01:04 - core.services.process_executor - TaskExecution 10 salvo com status: completed
+[INFO] 2026-01-16 11:01:04 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:01:04 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:01:04 - core.services.process_executor - Total de tasks executadas: 1
+[INFO] 2026-01-16 11:01:04 - core.services.process_executor - ProcessExecution ID: 10, Status: completed
+[INFO] 2026-01-16 11:02:34 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:02:34 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:02:34 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:02:34 - core.services.process_executor - ProcessExecution criado - ID: 11, Status: running
+[INFO] 2026-01-16 11:02:34 - core.services.process_executor - --- Executando Task #1: 'Enriquecer descrição de produto' (ID: 2) ---
+[INFO] 2026-01-16 11:02:35 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:02:57 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:02:57 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:02:57 - core.services.process_executor - Task 'Enriquecer descrição de produto' executada com sucesso
+[INFO] 2026-01-16 11:02:57 - core.services.process_executor - TaskExecution 11 salvo com status: completed
+[INFO] 2026-01-16 11:02:57 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:02:57 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:02:57 - core.services.process_executor - Total de tasks executadas: 1
+[INFO] 2026-01-16 11:02:57 - core.services.process_executor - ProcessExecution ID: 11, Status: completed
+[INFO] 2026-01-16 11:12:56 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:12:56 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:12:56 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:12:56 - core.services.process_executor - ProcessExecution criado - ID: 12, Status: running
+[INFO] 2026-01-16 11:12:56 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:12:56 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:13:25 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:13:25 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:13:25 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:13:25 - core.services.process_executor - TaskExecution 12 salvo com status: completed
+[WARNING] 2026-01-16 11:13:25 - core.services.process_executor - Erro ao avaliar condição da transição #1: Condição inválida: true
+Traceback (most recent call last):
+  File "/home/server/axon/core/services/process_executor.py", line 153, in _get_next_task
+    result = ConditionEvaluator.evaluate(
+        transition.condition,
+        state
+    )
+  File "/home/server/axon/core/services/condition_evaluator.py", line 23, in evaluate
+    raise ValueError(f"Condição inválida: {condition}")
+ValueError: Condição inválida: true
+[INFO] 2026-01-16 11:13:25 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:13:25 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:13:25 - core.services.process_executor - Total de tasks executadas: 1
+[INFO] 2026-01-16 11:13:25 - core.services.process_executor - ProcessExecution ID: 12, Status: completed
+[INFO] 2026-01-16 11:14:27 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:14:27 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:14:27 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:14:27 - core.services.process_executor - ProcessExecution criado - ID: 13, Status: running
+[INFO] 2026-01-16 11:14:27 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:14:27 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:14:45 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:14:45 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:14:45 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:14:45 - core.services.process_executor - TaskExecution 13 salvo com status: completed
+[WARNING] 2026-01-16 11:14:45 - core.services.process_executor - Erro ao avaliar condição da transição #1: Condição inválida: True
+Traceback (most recent call last):
+  File "/home/server/axon/core/services/process_executor.py", line 153, in _get_next_task
+    result = ConditionEvaluator.evaluate(
+        transition.condition,
+        state
+    )
+  File "/home/server/axon/core/services/condition_evaluator.py", line 23, in evaluate
+    raise ValueError(f"Condição inválida: {condition}")
+ValueError: Condição inválida: True
+[INFO] 2026-01-16 11:14:45 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:14:45 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:14:45 - core.services.process_executor - Total de tasks executadas: 1
+[INFO] 2026-01-16 11:14:45 - core.services.process_executor - ProcessExecution ID: 13, Status: completed
+[INFO] 2026-01-16 11:15:11 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:15:11 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:15:11 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:15:11 - core.services.process_executor - ProcessExecution criado - ID: 14, Status: running
+[INFO] 2026-01-16 11:15:11 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:15:11 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:15:28 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:15:28 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:15:28 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:15:28 - core.services.process_executor - TaskExecution 14 salvo com status: completed
+[WARNING] 2026-01-16 11:15:28 - core.services.process_executor - Erro ao avaliar condição da transição #1: Condição inválida: "1==1"
+Traceback (most recent call last):
+  File "/home/server/axon/core/services/process_executor.py", line 153, in _get_next_task
+    result = ConditionEvaluator.evaluate(
+        transition.condition,
+        state
+    )
+  File "/home/server/axon/core/services/condition_evaluator.py", line 23, in evaluate
+    raise ValueError(f"Condição inválida: {condition}")
+ValueError: Condição inválida: "1==1"
+[INFO] 2026-01-16 11:15:28 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:15:28 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:15:28 - core.services.process_executor - Total de tasks executadas: 1
+[INFO] 2026-01-16 11:15:28 - core.services.process_executor - ProcessExecution ID: 14, Status: completed
+[INFO] 2026-01-16 11:17:58 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:17:58 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:17:58 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:17:58 - core.services.process_executor - ProcessExecution criado - ID: 15, Status: running
+[INFO] 2026-01-16 11:17:58 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:17:58 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:18:15 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:18:15 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:18:15 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:18:15 - core.services.process_executor - TaskExecution 15 salvo com status: completed
+[ERROR] 2026-01-16 11:18:15 - core.services.condition_evaluator - Condição inválida - Esperado 3 tokens, recebido 1: '"1==1"'
+[WARNING] 2026-01-16 11:18:15 - core.services.process_executor - Erro ao avaliar condição da transição #1: Condição inválida: "1==1"
+Traceback (most recent call last):
+  File "/home/server/axon/core/services/process_executor.py", line 153, in _get_next_task
+    result = ConditionEvaluator.evaluate(
+        transition.condition,
+        state
+    )
+  File "/home/server/axon/core/services/condition_evaluator.py", line 32, in evaluate
+    raise ValueError(f"Condição inválida: {condition}")
+ValueError: Condição inválida: "1==1"
+[INFO] 2026-01-16 11:18:15 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:18:15 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:18:15 - core.services.process_executor - Total de tasks executadas: 1
+[INFO] 2026-01-16 11:18:15 - core.services.process_executor - ProcessExecution ID: 15, Status: completed
+[INFO] 2026-01-16 11:18:59 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:18:59 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:18:59 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:18:59 - core.services.process_executor - ProcessExecution criado - ID: 16, Status: running
+[INFO] 2026-01-16 11:18:59 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:18:59 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:19:18 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:19:18 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:19:18 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:19:18 - core.services.process_executor - TaskExecution 16 salvo com status: completed
+[ERROR] 2026-01-16 11:19:18 - core.services.condition_evaluator - Condição inválida - Esperado 3 tokens, recebido 1: '1==1'
+[WARNING] 2026-01-16 11:19:18 - core.services.process_executor - Erro ao avaliar condição da transição #1: Condição inválida: 1==1
+Traceback (most recent call last):
+  File "/home/server/axon/core/services/process_executor.py", line 153, in _get_next_task
+    result = ConditionEvaluator.evaluate(
+        transition.condition,
+        state
+    )
+  File "/home/server/axon/core/services/condition_evaluator.py", line 32, in evaluate
+    raise ValueError(f"Condição inválida: {condition}")
+ValueError: Condição inválida: 1==1
+[INFO] 2026-01-16 11:19:18 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:19:18 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:19:18 - core.services.process_executor - Total de tasks executadas: 1
+[INFO] 2026-01-16 11:19:18 - core.services.process_executor - ProcessExecution ID: 16, Status: completed
+[INFO] 2026-01-16 11:20:20 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:20:20 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:20:20 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:20:20 - core.services.process_executor - ProcessExecution criado - ID: 17, Status: running
+[INFO] 2026-01-16 11:20:20 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:20:21 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:20:36 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:20:36 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:20:36 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:20:36 - core.services.process_executor - TaskExecution 17 salvo com status: completed
+[WARNING] 2026-01-16 11:20:36 - core.services.condition_evaluator - Chave '1' não encontrada no dicionário. Chaves disponíveis: ['input', 'results', 'meta']
+[INFO] 2026-01-16 11:20:36 - core.services.condition_evaluator - Condição avaliada: '1 == 1' = False
+[INFO] 2026-01-16 11:20:36 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:20:36 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:20:36 - core.services.process_executor - Total de tasks executadas: 1
+[INFO] 2026-01-16 11:20:36 - core.services.process_executor - ProcessExecution ID: 17, Status: completed
+[INFO] 2026-01-16 11:25:07 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:25:07 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:25:07 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:25:07 - core.services.process_executor - ProcessExecution criado - ID: 18, Status: running
+[INFO] 2026-01-16 11:25:07 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:25:08 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:25:22 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:25:22 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:25:22 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:25:22 - core.services.process_executor - TaskExecution 18 salvo com status: completed
+[INFO] 2026-01-16 11:25:22 - core.services.condition_evaluator - Condição avaliada: 'results.product_description_enrichment.confidence >= 0' = True
+[INFO] 2026-01-16 11:25:22 - core.services.process_executor - Condição satisfeita para transição: 'product_classify'
+[INFO] 2026-01-16 11:25:22 - core.services.process_executor - Transição aprovada - Próxima task: 'product_classify' (ID: 3)
+[INFO] 2026-01-16 11:25:22 - core.services.process_executor - --- Executando Task #2: 'product_classify' (ID: 3) ---
+[INFO] 2026-01-16 11:25:22 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:25:31 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:25:31 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:25:31 - core.services.process_executor - Task 'product_classify' executada com sucesso
+[INFO] 2026-01-16 11:25:31 - core.services.process_executor - TaskExecution 19 salvo com status: completed
+[INFO] 2026-01-16 11:25:31 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:25:31 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:25:31 - core.services.process_executor - Total de tasks executadas: 2
+[INFO] 2026-01-16 11:25:31 - core.services.process_executor - ProcessExecution ID: 18, Status: completed
+[INFO] 2026-01-16 11:25:53 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:25:53 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:25:53 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:25:53 - core.services.process_executor - ProcessExecution criado - ID: 19, Status: running
+[INFO] 2026-01-16 11:25:53 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:25:53 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:26:14 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:26:14 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:26:14 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:26:14 - core.services.process_executor - TaskExecution 20 salvo com status: completed
+[INFO] 2026-01-16 11:26:14 - core.services.condition_evaluator - Condição avaliada: 'results.product_description_enrichment.confidence >= 0' = True
+[INFO] 2026-01-16 11:26:14 - core.services.process_executor - Condição satisfeita para transição: 'product_classify'
+[INFO] 2026-01-16 11:26:14 - core.services.process_executor - Transição aprovada - Próxima task: 'product_classify' (ID: 3)
+[INFO] 2026-01-16 11:26:14 - core.services.process_executor - --- Executando Task #2: 'product_classify' (ID: 3) ---
+[INFO] 2026-01-16 11:26:14 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:29:33 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:29:33 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:29:33 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:29:33 - core.services.process_executor - ProcessExecution criado - ID: 20, Status: running
+[INFO] 2026-01-16 11:29:33 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:29:33 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:29:47 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:29:47 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:29:47 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:29:47 - core.services.process_executor - TaskExecution 22 salvo com status: completed
+[INFO] 2026-01-16 11:29:47 - core.services.condition_evaluator - Condição avaliada: 'results.product_description_enrichment.confidence >= 0' = True
+[INFO] 2026-01-16 11:29:47 - core.services.process_executor - Condição satisfeita para transição: 'product_classify'
+[INFO] 2026-01-16 11:29:47 - core.services.process_executor - Transição aprovada - Próxima task: 'product_classify' (ID: 3)
+[INFO] 2026-01-16 11:29:47 - core.services.process_executor - --- Executando Task #2: 'product_classify' (ID: 3) ---
+[INFO] 2026-01-16 11:29:47 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:29:57 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:29:57 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:29:57 - core.services.process_executor - Task 'product_classify' executada com sucesso
+[INFO] 2026-01-16 11:29:57 - core.services.process_executor - TaskExecution 23 salvo com status: completed
+[INFO] 2026-01-16 11:29:57 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:29:57 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:29:57 - core.services.process_executor - Total de tasks executadas: 2
+[INFO] 2026-01-16 11:29:57 - core.services.process_executor - ProcessExecution ID: 20, Status: completed
+[WARNING] 2026-01-16 11:30:31 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:31 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:31 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:31 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:32 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:32 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:32 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:33 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:33 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:33 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:35 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:35 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:35 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:35 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:35 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:36 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:36 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:36 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:36 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:36 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:36 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:37 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:37 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:37 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:37 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:37 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:37 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:37 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:38 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:38 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:38 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:38 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:39 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:39 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:39 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:39 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:40 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:40 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:40 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:41 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:41 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:41 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:42 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:43 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:43 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:44 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:45 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:47 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:48 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:49 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:49 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:50 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:51 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:52 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:53 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:55 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:56 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:57 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:58 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:59 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:30:59 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:31:02 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:31:11 - django.request - Not Found: /
+[WARNING] 2026-01-16 11:31:17 - django.request - Not Found: /
+[INFO] 2026-01-16 11:32:51 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:32:51 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:32:51 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:32:51 - core.services.process_executor - ProcessExecution criado - ID: 21, Status: running
+[INFO] 2026-01-16 11:32:51 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:32:51 - core.services.agent_runtime - Inicializando AgentRuntime para 'Especialista em produtos'
+[INFO] 2026-01-16 11:32:52 - core.services.agent_runtime - LLM provider criado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:32:52 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:32:52 - core.services.agent_runtime - --- Iniciando execução do agent 'Especialista em produtos' ---
+[INFO] 2026-01-16 11:32:52 - core.services.agent_runtime - Invocando LLM para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:33:03 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:33:03 - core.services.agent_runtime - LLM respondeu com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:33:03 - core.services.agent_runtime - JSON parseado com sucesso
+[INFO] 2026-01-16 11:33:03 - core.services.agent_runtime - JSON estruturado parseado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:33:03 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:33:03 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:33:03 - core.services.process_executor - TaskExecution 24 salvo com status: completed
+[INFO] 2026-01-16 11:33:03 - core.services.condition_evaluator - Condição avaliada: 'results.product_description_enrichment.confidence >= 0' = True
+[INFO] 2026-01-16 11:33:03 - core.services.process_executor - Condição satisfeita para transição: 'product_classify'
+[INFO] 2026-01-16 11:33:03 - core.services.process_executor - Transição aprovada - Próxima task: 'product_classify' (ID: 3)
+[INFO] 2026-01-16 11:33:03 - core.services.process_executor - --- Executando Task #2: 'product_classify' (ID: 3) ---
+[INFO] 2026-01-16 11:33:03 - core.services.agent_runtime - Inicializando AgentRuntime para 'Especialista em produtos'
+[INFO] 2026-01-16 11:33:03 - core.services.agent_runtime - LLM provider criado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:33:03 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:33:03 - core.services.agent_runtime - --- Iniciando execução do agent 'Especialista em produtos' ---
+[INFO] 2026-01-16 11:33:03 - core.services.agent_runtime - Invocando LLM para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:33:13 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:33:13 - core.services.agent_runtime - LLM respondeu com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:33:13 - core.services.agent_runtime - JSON parseado com sucesso
+[INFO] 2026-01-16 11:33:13 - core.services.agent_runtime - JSON estruturado parseado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:33:13 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:33:13 - core.services.process_executor - Task 'product_classify' executada com sucesso
+[INFO] 2026-01-16 11:33:13 - core.services.process_executor - TaskExecution 25 salvo com status: completed
+[INFO] 2026-01-16 11:33:13 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:33:13 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:33:13 - core.services.process_executor - Total de tasks executadas: 2
+[INFO] 2026-01-16 11:33:13 - core.services.process_executor - ProcessExecution ID: 21, Status: completed
+[INFO] 2026-01-16 11:35:33 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:35:33 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:35:33 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:35:33 - core.services.process_executor - ProcessExecution criado - ID: 22, Status: running
+[INFO] 2026-01-16 11:35:33 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:35:33 - core.services.agent_runtime - Inicializando AgentRuntime para 'Especialista em produtos'
+[INFO] 2026-01-16 11:35:33 - core.services.agent_runtime - LLM provider criado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:35:33 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:35:33 - core.services.agent_runtime - --- Iniciando execução do agent 'Especialista em produtos' ---
+[INFO] 2026-01-16 11:35:33 - core.services.agent_runtime - Invocando LLM para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:35:55 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:35:55 - core.services.agent_runtime - LLM respondeu com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:35:55 - core.services.agent_runtime - JSON parseado com sucesso
+[INFO] 2026-01-16 11:35:55 - core.services.agent_runtime - JSON estruturado parseado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:35:55 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:35:55 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:35:55 - core.services.process_executor - TaskExecution 26 salvo com status: completed
+[INFO] 2026-01-16 11:35:55 - core.services.condition_evaluator - Condição avaliada: 'results.product_description_enrichment.confidence >= 0' = True
+[INFO] 2026-01-16 11:35:55 - core.services.process_executor - Condição satisfeita para transição: 'product_classify'
+[INFO] 2026-01-16 11:35:55 - core.services.process_executor - Transição aprovada - Próxima task: 'product_classify' (ID: 3)
+[INFO] 2026-01-16 11:35:55 - core.services.process_executor - --- Executando Task #2: 'product_classify' (ID: 3) ---
+[INFO] 2026-01-16 11:35:55 - core.services.agent_runtime - Inicializando AgentRuntime para 'Especialista em produtos'
+[INFO] 2026-01-16 11:35:55 - core.services.agent_runtime - LLM provider criado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:35:55 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:35:55 - core.services.agent_runtime - --- Iniciando execução do agent 'Especialista em produtos' ---
+[INFO] 2026-01-16 11:35:55 - core.services.agent_runtime - Invocando LLM para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:09 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:36:09 - core.services.agent_runtime - LLM respondeu com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:09 - core.services.agent_runtime - JSON parseado com sucesso
+[INFO] 2026-01-16 11:36:09 - core.services.agent_runtime - JSON estruturado parseado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:09 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:36:09 - core.services.process_executor - Task 'product_classify' executada com sucesso
+[INFO] 2026-01-16 11:36:09 - core.services.process_executor - TaskExecution 27 salvo com status: completed
+[INFO] 2026-01-16 11:36:09 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:36:09 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:36:09 - core.services.process_executor - Total de tasks executadas: 2
+[INFO] 2026-01-16 11:36:09 - core.services.process_executor - ProcessExecution ID: 22, Status: completed
+[INFO] 2026-01-16 11:36:24 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:36:24 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:36:24 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:36:24 - core.services.process_executor - ProcessExecution criado - ID: 23, Status: running
+[INFO] 2026-01-16 11:36:24 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:36:24 - core.services.agent_runtime - Inicializando AgentRuntime para 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:24 - core.services.agent_runtime - LLM provider criado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:24 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:36:24 - core.services.agent_runtime - --- Iniciando execução do agent 'Especialista em produtos' ---
+[INFO] 2026-01-16 11:36:24 - core.services.agent_runtime - Invocando LLM para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:24 - core.services.agent_runtime - TEMP: [SystemMessage(content='Atue como Especialista em produtos. Você é um profissional com anos de experiência em e-commerce, conhece informações detalhadas sobre produtos e como funcionam, sobretudo critérios utilizados para classificação', additional_kwargs={}, response_metadata={}), HumanMessage(content="{'product': 'Panetone'}", additional_kwargs={}, response_metadata={}), SystemMessage(content='Responda EXCLUSIVAMENTE em JSON válido no seguinte formato: \'{"text": string, "confidence": number}\'. Não inclua explicações, comentários ou texto fora do JSON.', additional_kwargs={}, response_metadata={})]
+[INFO] 2026-01-16 11:36:42 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:36:42 - core.services.agent_runtime - LLM respondeu com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:42 - core.services.agent_runtime - JSON parseado com sucesso
+[INFO] 2026-01-16 11:36:42 - core.services.agent_runtime - JSON estruturado parseado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:42 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:36:42 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:36:42 - core.services.process_executor - TaskExecution 28 salvo com status: completed
+[INFO] 2026-01-16 11:36:42 - core.services.condition_evaluator - Condição avaliada: 'results.product_description_enrichment.confidence >= 0' = True
+[INFO] 2026-01-16 11:36:42 - core.services.process_executor - Condição satisfeita para transição: 'product_classify'
+[INFO] 2026-01-16 11:36:42 - core.services.process_executor - Transição aprovada - Próxima task: 'product_classify' (ID: 3)
+[INFO] 2026-01-16 11:36:42 - core.services.process_executor - --- Executando Task #2: 'product_classify' (ID: 3) ---
+[INFO] 2026-01-16 11:36:42 - core.services.agent_runtime - Inicializando AgentRuntime para 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:42 - core.services.agent_runtime - LLM provider criado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:42 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:36:42 - core.services.agent_runtime - --- Iniciando execução do agent 'Especialista em produtos' ---
+[INFO] 2026-01-16 11:36:42 - core.services.agent_runtime - Invocando LLM para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:36:42 - core.services.agent_runtime - TEMP: [SystemMessage(content='Atue como Especialista em produtos. Você é um profissional com anos de experiência em e-commerce, conhece informações detalhadas sobre produtos e como funcionam, sobretudo critérios utilizados para classificação', additional_kwargs={}, response_metadata={}), HumanMessage(content="{'text': 'Categoria: Panificação/Confeitaria. Produto: Panetone. Tipos comuns: tradicional com frutas cristalizadas; chocolate; versões recheadas ou cobertas. Atributos-chave: massa macia e aerada, fermentação longa, aroma doce, enriquecida com manteiga e ovos. Tamanhos típicos: 500 g, 750 g, 1 kg. Embalagem: caixa/cartão ou embalagem densa para proteção; validade depende da fórmula, normalmente meses. Conservação: manter em local fresco e seco, longe de calor; evitar exposição ao sol; após aberto, consumir em 3 a 5 dias ou congelar por 2 a 3 meses. Recomendações de compra: verificar data de validade, odor e aspecto da massa, presença de sinais de mofo, qualidade dos ingredientes. Sugestões de harmonização: café, chá preto, vinho doce. Observação de classificação: principal critério é o tipo de panetone e o tamanho/embalagem.'}", additional_kwargs={}, response_metadata={}), SystemMessage(content='Responda EXCLUSIVAMENTE em JSON válido no seguinte formato: \'{"text": string, "confidence": number}\'. Não inclua explicações, comentários ou texto fora do JSON.', additional_kwargs={}, response_metadata={})]
+[INFO] 2026-01-16 11:54:50 - core.services.process_executor - Inicializando ProcessExecutor para processo: 'Identificador de cupons para produtos'
+[INFO] 2026-01-16 11:54:50 - core.services.process_executor - ProcessExecutor inicializado com sucesso - Process ID: 2
+[INFO] 2026-01-16 11:54:50 - core.services.process_executor - ========== INICIANDO EXECUÇÃO DO PROCESSO: Identificador de cupons para produtos ==========
+[INFO] 2026-01-16 11:54:50 - core.services.process_executor - ProcessExecution criado - ID: 24, Status: running
+[INFO] 2026-01-16 11:54:50 - core.services.process_executor - --- Executando Task #1: 'product_description_enrichment' (ID: 2) ---
+[INFO] 2026-01-16 11:54:50 - core.services.agent_runtime - Inicializando AgentRuntime para 'Especialista em produtos'
+[INFO] 2026-01-16 11:54:50 - core.services.agent_runtime - LLM provider criado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:54:50 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:54:50 - core.services.agent_runtime - --- Iniciando execução do agent 'Especialista em produtos' ---
+[INFO] 2026-01-16 11:54:50 - core.services.agent_runtime - Invocando LLM para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:54:50 - core.services.agent_runtime - TEMP: [SystemMessage(content='Atue como Especialista em produtos. Você é um profissional com anos de experiência em e-commerce, conhece informações detalhadas sobre produtos e como funcionam, sobretudo critérios utilizados para classificação', additional_kwargs={}, response_metadata={}), HumanMessage(content="{'product': 'Panetone'}", additional_kwargs={}, response_metadata={}), SystemMessage(content='Responda EXCLUSIVAMENTE em JSON válido no seguinte formato: \'{"text": string, "confidence": number}\'. Não inclua explicações, comentários ou texto fora do JSON.', additional_kwargs={}, response_metadata={})]
+[INFO] 2026-01-16 11:55:04 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:55:04 - core.services.agent_runtime - LLM respondeu com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:55:04 - core.services.agent_runtime - JSON parseado com sucesso
+[INFO] 2026-01-16 11:55:04 - core.services.agent_runtime - JSON estruturado parseado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:55:04 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:55:04 - core.services.process_executor - Task 'product_description_enrichment' executada com sucesso
+[INFO] 2026-01-16 11:55:04 - core.services.process_executor - TaskExecution 30 salvo com status: completed
+[INFO] 2026-01-16 11:55:04 - core.services.condition_evaluator - Condição avaliada: 'results.product_description_enrichment.confidence >= 0' = True
+[INFO] 2026-01-16 11:55:04 - core.services.process_executor - Condição satisfeita para transição: 'product_classify'
+[INFO] 2026-01-16 11:55:04 - core.services.process_executor - Transição aprovada - Próxima task: 'product_classify' (ID: 3)
+[INFO] 2026-01-16 11:55:04 - core.services.process_executor - --- Executando Task #2: 'product_classify' (ID: 3) ---
+[INFO] 2026-01-16 11:55:04 - core.services.agent_runtime - Inicializando AgentRuntime para 'Especialista em produtos'
+[INFO] 2026-01-16 11:55:04 - core.services.agent_runtime - LLM provider criado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:55:04 - core.services.process_executor - Invocando agent 'Especialista em produtos' via LLM
+[INFO] 2026-01-16 11:55:04 - core.services.agent_runtime - --- Iniciando execução do agent 'Especialista em produtos' ---
+[INFO] 2026-01-16 11:55:04 - core.services.agent_runtime - Invocando LLM para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:55:04 - core.services.agent_runtime - TEMP: [SystemMessage(content='Atue como Especialista em produtos. Você é um profissional com anos de experiência em e-commerce, conhece informações detalhadas sobre produtos e como funcionam, sobretudo critérios utilizados para classificação', additional_kwargs={}, response_metadata={}), HumanMessage(content="{'text': 'Panetone é um pão doce tradicional italiano para festas de fim de ano. Categoria: confeitaria / panetone. Atributos comuns: tamanhos 500 g, 750 g e 1 kg; ingredientes principais: farinha de trigo, manteiga, ovos, açúcar e frutas cristalizadas; alérgenos: glúten, leite, ovos. Variedades típicas: tradicional, com chocolate, com frutas. Conservação: validade geralmente de 30 a 60 dias em temperatura ambiente; armazenar em local fresco e seco; embalagem é geralmente selada. Uso: presente ou sobremesa.'}", additional_kwargs={}, response_metadata={}), SystemMessage(content='Responda EXCLUSIVAMENTE em JSON válido no seguinte formato: \'{"text": string, "confidence": number}\'. Não inclua explicações, comentários ou texto fora do JSON.', additional_kwargs={}, response_metadata={})]
+[INFO] 2026-01-16 11:55:20 - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2026-01-16 11:55:20 - core.services.agent_runtime - LLM respondeu com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:55:20 - core.services.agent_runtime - JSON parseado com sucesso
+[INFO] 2026-01-16 11:55:20 - core.services.agent_runtime - JSON estruturado parseado com sucesso para agent 'Especialista em produtos'
+[INFO] 2026-01-16 11:55:20 - core.services.process_executor - Agent 'Especialista em produtos' retornou resposta com sucesso
+[INFO] 2026-01-16 11:55:20 - core.services.process_executor - Task 'product_classify' executada com sucesso
+[INFO] 2026-01-16 11:55:20 - core.services.process_executor - TaskExecution 31 salvo com status: completed
+[INFO] 2026-01-16 11:55:20 - core.services.process_executor - Nenhuma transição válida encontrada - Finalizando processo
+[INFO] 2026-01-16 11:55:20 - core.services.process_executor - ========== PROCESSO 'Identificador de cupons para produtos' CONCLUÍDO COM SUCESSO ==========
+[INFO] 2026-01-16 11:55:20 - core.services.process_executor - Total de tasks executadas: 2
+[INFO] 2026-01-16 11:55:20 - core.services.process_executor - ProcessExecution ID: 24, Status: completed
+[WARNING] 2026-01-16 12:02:59 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:00 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:01 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:02 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:05 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:05 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:06 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:07 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:10 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:11 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:12 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:12 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:13 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:13 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:14 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:14 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:16 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:17 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:18 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:18 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:20 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:22 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:22 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:23 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:24 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:25 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:25 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:26 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:30 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:32 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:37 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:03:38 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:07:31 - django.request - Not Found: /
+[ERROR] 2026-01-16 12:18:00 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 12:18:01 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-16 12:21:59 - django.request - Not Found: /robots.txt
+[WARNING] 2026-01-16 12:21:59 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:23 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:26 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:28 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:29 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:31 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:32 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:41 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:43 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:46 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:30:48 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:37:33 - django.request - Not Found: /
+[WARNING] 2026-01-16 12:37:34 - django.request - Not Found: /js/lkk_ch.js
+[WARNING] 2026-01-16 12:37:34 - django.request - Not Found: /css/support_parent.css
+[WARNING] 2026-01-16 12:37:34 - django.request - Not Found: /js/twint_ch.js
+[WARNING] 2026-01-16 12:59:30 - django.request - Not Found: /
+[WARNING] 2026-01-16 13:03:11 - django.request - Not Found: /
+[WARNING] 2026-01-16 13:03:12 - django.request - Not Found: /
+[ERROR] 2026-01-16 14:47:52 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 14:47:52 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 14:47:52 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 14:47:52 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 14:47:52 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 14:47:52 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 14:47:53 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 15:20:03 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 15:20:05 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 15:20:06 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 15:20:07 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-16 15:23:42 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:20 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:23 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:28 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:32 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:32 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:33 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:34 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:34 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:34 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:34 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:35 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:36 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:36 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:36 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:39 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:41 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:41 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:41 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:41 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:42 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:42 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:42 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:42 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:45 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:45 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:45 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:45 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:45 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:45 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:45 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:46 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:46 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:47 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:47 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:47 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:48 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:48 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:49 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:49 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:49 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:49 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:50 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:51 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:51 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:51 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:51 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:51 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:52 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:52 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:53 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:53 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:54 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:54 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:55 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:56 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:56 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:57 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:57 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:57 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:55:58 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:59 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:55:59 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:00 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:00 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:00 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:00 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:00 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:01 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:01 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:01 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:04 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:05 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:05 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:05 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:05 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:05 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:06 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:06 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:07 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:07 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:09 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:09 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:09 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:09 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:09 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:09 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:10 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:10 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:11 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:12 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:12 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:12 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:12 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:13 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:13 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:13 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:13 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:14 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:14 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:14 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:14 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:14 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:14 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:15 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:15 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:16 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:16 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:16 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:16 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:16 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:16 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:16 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:16 - django.request - Not Found: /
+[WARNING] 2026-01-16 15:56:17 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:18 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 15:56:20 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 16:03:23 - django.request - Not Found: /
+[WARNING] 2026-01-16 16:03:23 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 16:03:36 - django.request - Not Found: /
+[WARNING] 2026-01-16 16:03:37 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 16:03:39 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 16:53:51 - django.request - Not Found: /
+[WARNING] 2026-01-16 17:23:48 - django.request - Not Found: /
+[WARNING] 2026-01-16 17:23:48 - django.request - Not Found: /
+[WARNING] 2026-01-16 17:23:52 - django.request - Not Found: /
+[WARNING] 2026-01-16 17:23:52 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 18:00:27 - django.request - Not Found: /
+[WARNING] 2026-01-16 18:00:29 - django.request - Not Found: /
+[WARNING] 2026-01-16 18:00:29 - django.request - Not Found: /
+[WARNING] 2026-01-16 18:01:15 - django.request - Not Found: /
+[WARNING] 2026-01-16 18:03:05 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 18:05:02 - django.request - Not Found: /
+[WARNING] 2026-01-16 18:11:08 - django.request - Not Found: /
+[WARNING] 2026-01-16 18:11:15 - django.request - Not Found: /
+[ERROR] 2026-01-16 18:23:51 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 18:23:51 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 18:23:51 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-16 18:35:31 - django.request - Not Found: /
+[WARNING] 2026-01-16 18:35:32 - django.request - Not Found: /
+[WARNING] 2026-01-16 18:35:33 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 18:35:34 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-16 18:58:08 - django.request - Not Found: /
+[ERROR] 2026-01-16 21:57:19 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-16 22:00:00 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-16 23:30:45 - django.request - Not Found: /
+[WARNING] 2026-01-16 23:30:46 - django.request - Not Found: /js/lkk_ch.js
+[WARNING] 2026-01-16 23:30:46 - django.request - Not Found: /js/twint_ch.js
+[WARNING] 2026-01-16 23:30:46 - django.request - Not Found: /css/support_parent.css
+[ERROR] 2026-01-17 01:38:56 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 02:11:23 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 02:11:25 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 02:11:26 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 02:11:27 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-17 02:35:17 - django.request - Not Found: /
+[WARNING] 2026-01-17 02:35:19 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 02:35:23 - django.request - Not Found: /
+[WARNING] 2026-01-17 02:35:24 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 04:03:08 - django.request - Not Found: /wp-login.php
+[WARNING] 2026-01-17 07:42:51 - django.request - Not Found: /
+[ERROR] 2026-01-17 08:07:52 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 10:01:35 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-17 10:36:23 - django.request - Not Found: /
+[WARNING] 2026-01-17 10:36:25 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 10:36:39 - django.request - Not Found: /
+[WARNING] 2026-01-17 10:36:41 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 10:58:51 - django.request - Not Found: /.git/config
+[ERROR] 2026-01-17 11:18:55 - django.security.DisallowedHost - Invalid HTTP_HOST header: 'cloudflare.com'. You may need to add 'cloudflare.com' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'cloudflare.com'. You may need to add 'cloudflare.com' to ALLOWED_HOSTS.
+[WARNING] 2026-01-17 11:26:07 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:26:16 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:26:17 - django.request - Not Found: /apps
+[WARNING] 2026-01-17 11:26:17 - django.request - Not Found: /api/action
+[WARNING] 2026-01-17 11:26:17 - django.request - Not Found: /api/actions
+[WARNING] 2026-01-17 11:26:17 - django.request - Not Found: /_next/data
+[WARNING] 2026-01-17 11:26:18 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:11 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:12 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:13 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:13 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:14 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:15 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:15 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:16 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:16 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:17 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:17 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:17 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:18 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:18 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:18 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:19 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:20 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:21 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:22 - django.request - Not Found: /
+[WARNING] 2026-01-17 11:32:22 - django.request - Not Found: /
+[ERROR] 2026-01-17 11:50:05 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-17 12:18:55 - django.request - Not Found: /
+[ERROR] 2026-01-17 14:54:55 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 15:28:32 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 15:28:33 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 15:28:35 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 15:28:36 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 16:14:17 - django.security.DisallowedHost - Invalid HTTP_HOST header: 'mail.melhor-compra.jonas.marinho.nom.br'. You may need to add 'mail.melhor-compra.jonas.marinho.nom.br' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mail.melhor-compra.jonas.marinho.nom.br'. You may need to add 'mail.melhor-compra.jonas.marinho.nom.br' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 16:14:20 - django.security.DisallowedHost - Invalid HTTP_HOST header: 'mail.melhor-compra.jonas.marinho.nom.br'. You may need to add 'mail.melhor-compra.jonas.marinho.nom.br' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mail.melhor-compra.jonas.marinho.nom.br'. You may need to add 'mail.melhor-compra.jonas.marinho.nom.br' to ALLOWED_HOSTS.
+[WARNING] 2026-01-17 16:32:22 - django.request - Not Found: /
+[WARNING] 2026-01-17 18:35:38 - django.request - Not Found: /
+[WARNING] 2026-01-17 18:35:40 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 18:35:49 - django.request - Not Found: /
+[WARNING] 2026-01-17 18:35:51 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 20:03:21 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:13 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:22 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:28 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:34 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:34 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:34 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:39 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:39 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:39 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:40 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:40 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:40 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:42 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:42 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:43 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:44 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:44 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:44 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:44 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:44 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:46 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:46 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:46 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:48 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:52 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:53 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:53 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:53 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:53 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:53 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:53 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:54 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:54 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:57 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:58 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:58 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:58 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:58 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:03:59 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:03:59 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:01 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:03 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:04 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:04 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:04 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:06 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:06 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:07 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:08 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:10 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:13 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:13 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:13 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:14 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:15 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:15 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:15 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:17 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:22 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:23 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:23 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:23 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:24 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:24 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:28 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:29 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:29 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:30 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:30 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:30 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:30 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:30 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:31 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:32 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:34 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:35 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:36 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:36 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:37 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:37 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:38 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:39 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:40 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:40 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:41 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:41 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:42 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:42 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:43 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:43 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:44 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:44 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:49 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:49 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:49 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:50 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:52 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:54 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:54 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:54 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:04:55 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:55 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:55 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:55 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:57 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:04:57 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:00 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:00 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:00 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:02 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:02 - django.request - Not Found: /
+[WARNING] 2026-01-17 21:05:09 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:10 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:10 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:14 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:05:20 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-17 21:12:02 - django.request - Not Found: /
+[ERROR] 2026-01-17 22:56:02 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 22:59:07 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-17 23:48:28 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-18 01:06:17 - django.request - Not Found: /.git/HEAD
+[ERROR] 2026-01-18 01:55:05 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-18 02:36:22 - django.request - Not Found: /
+[WARNING] 2026-01-18 02:36:22 - django.request - Not Found: /
+[WARNING] 2026-01-18 02:36:24 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-18 02:36:24 - django.request - Not Found: /favicon.ico
+[ERROR] 2026-01-18 02:46:41 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 02:46:42 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 02:46:43 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 02:46:45 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 03:00:23 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 03:00:27 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-18 06:11:03 - django.request - Not Found: /wp-login.php
+[ERROR] 2026-01-18 06:57:45 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-18 10:32:39 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:39 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:39 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:39 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:40 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:40 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:41 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:41 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:42 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:42 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:43 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:43 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:43 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:44 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:44 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:44 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:45 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:46 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:46 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:32:46 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:36:28 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:36:29 - django.request - Not Found: /
+[WARNING] 2026-01-18 10:36:30 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-18 10:36:30 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-18 11:11:33 - django.request - Not Found: /
+[ERROR] 2026-01-18 11:13:28 - django.security.DisallowedHost - Invalid HTTP_HOST header: 'mail.pentagonix.com.br'. You may need to add 'mail.pentagonix.com.br' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mail.pentagonix.com.br'. You may need to add 'mail.pentagonix.com.br' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 11:24:30 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 11:24:30 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 11:24:31 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-18 12:18:00 - django.request - Not Found: /
+[WARNING] 2026-01-18 12:29:14 - django.request - Not Found: /
+[ERROR] 2026-01-18 12:45:05 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 13:41:43 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 13:47:12 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-18 14:48:42 - django.request - Not Found: /
+[WARNING] 2026-01-18 14:48:46 - django.request - Not Found: /favicon.ico
+[ERROR] 2026-01-18 15:05:23 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 15:05:24 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 15:05:25 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 15:05:25 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-18 15:39:18 - django.request - Not Found: /
+[WARNING] 2026-01-18 16:51:05 - django.request - Not Found: /
+[WARNING] 2026-01-18 18:37:16 - django.request - Not Found: /
+[WARNING] 2026-01-18 18:37:18 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-18 18:37:20 - django.request - Not Found: /
+[WARNING] 2026-01-18 18:37:22 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-18 19:17:59 - django.request - Not Found: /
+[WARNING] 2026-01-18 19:18:10 - django.request - Not Found: /wordpress/
+[ERROR] 2026-01-18 22:57:03 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 23:53:41 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-18 23:55:45 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 01:31:07 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 01:31:08 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 01:31:09 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 01:31:10 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-19 02:38:08 - django.request - Not Found: /
+[WARNING] 2026-01-19 02:38:09 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-19 02:38:19 - django.request - Not Found: /
+[WARNING] 2026-01-19 02:38:20 - django.request - Not Found: /favicon.ico
+[ERROR] 2026-01-19 03:27:11 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 06:23:56 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 06:23:56 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 06:23:57 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 06:23:57 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 07:04:33 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 09:02:25 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 09:02:25 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 09:02:26 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 09:02:27 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-19 09:34:33 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:34 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:35 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:35 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:36 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:37 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:38 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:39 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:40 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:40 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:41 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:42 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:43 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:44 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:45 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:45 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:46 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:47 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:48 - django.request - Not Found: /
+[WARNING] 2026-01-19 09:34:48 - django.request - Not Found: /
+[WARNING] 2026-01-19 10:39:05 - django.request - Not Found: /
+[WARNING] 2026-01-19 10:39:05 - django.request - Not Found: /
+[WARNING] 2026-01-19 10:39:07 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-19 10:39:07 - django.request - Not Found: /favicon.ico
+[ERROR] 2026-01-19 11:02:29 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 12:34:09 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 12:34:11 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 12:34:13 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 12:34:15 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-19 13:01:28 - django.request - Not Found: /p/en-us
+[WARNING] 2026-01-19 13:01:29 - django.request - Not Found: /page.html
+[WARNING] 2026-01-19 13:01:29 - django.request - Not Found: /contact-us
+[WARNING] 2026-01-19 13:01:31 - django.request - Not Found: /texasnational
+[WARNING] 2026-01-19 13:01:32 - django.request - Not Found: /annualcreditreport
+[WARNING] 2026-01-19 13:01:33 - django.request - Not Found: /swbsinc
+[WARNING] 2026-01-19 13:01:33 - django.request - Not Found: /fultonsboss
+[WARNING] 2026-01-19 13:01:34 - django.request - Not Found: /mabel
+[WARNING] 2026-01-19 13:01:35 - django.request - Not Found: /wedbush
+[WARNING] 2026-01-19 13:01:36 - django.request - Not Found: /silk-epil
+[WARNING] 2026-01-19 13:01:42 - django.request - Not Found: /dalecoopeuch
+[WARNING] 2026-01-19 13:02:11 - django.request - Not Found: /premiereradio
+[WARNING] 2026-01-19 13:02:17 - django.request - Not Found: /conagramills
+[WARNING] 2026-01-19 13:02:22 - django.request - Not Found: /mytilconny
+[WARNING] 2026-01-19 13:03:21 - django.request - Not Found: /alexandermcqueen
+[WARNING] 2026-01-19 13:05:31 - django.request - Not Found: /fis-mpce
+[WARNING] 2026-01-19 13:05:33 - django.request - Not Found: /designshanghai
+[WARNING] 2026-01-19 13:05:50 - django.request - Not Found: /marketplace365
+[WARNING] 2026-01-19 13:06:05 - django.request - Not Found: /lbsfcu
+[WARNING] 2026-01-19 13:06:33 - django.request - Not Found: /lexicon
+[WARNING] 2026-01-19 13:06:57 - django.request - Not Found: /bctstructures
+[WARNING] 2026-01-19 13:06:59 - django.request - Not Found: /swift-ships
+[WARNING] 2026-01-19 13:07:32 - django.request - Not Found: /nursecompact
+[WARNING] 2026-01-19 13:07:43 - django.request - Not Found: /jltsck
+[WARNING] 2026-01-19 13:07:44 - django.request - Not Found: /cookiecrisp
+[WARNING] 2026-01-19 13:08:17 - django.request - Not Found: /danehoffet
+[WARNING] 2026-01-19 13:09:08 - django.request - Not Found: /mybenefitssolutions
+[WARNING] 2026-01-19 13:09:13 - django.request - Not Found: /justaskadmin
+[WARNING] 2026-01-19 13:10:09 - django.request - Not Found: /adanipower
+[WARNING] 2026-01-19 13:11:10 - django.request - Not Found: /awsamg
+[WARNING] 2026-01-19 13:11:25 - django.request - Not Found: /tarmaccareers
+[WARNING] 2026-01-19 13:11:38 - django.request - Not Found: /hpanyware
+[WARNING] 2026-01-19 13:12:03 - django.request - Not Found: /intigral
+[WARNING] 2026-01-19 13:12:04 - django.request - Not Found: /bhiusa
+[WARNING] 2026-01-19 13:12:19 - django.request - Not Found: /punters
+[WARNING] 2026-01-19 13:12:37 - django.request - Not Found: /ahtogo
+[WARNING] 2026-01-19 13:13:07 - django.request - Not Found: /cynenv
+[WARNING] 2026-01-19 13:13:08 - django.request - Not Found: /ruduskivitalo
+[WARNING] 2026-01-19 13:13:24 - django.request - Not Found: /virginiacollegesavingsplan
+[WARNING] 2026-01-19 13:13:40 - django.request - Not Found: /ke2therm
+[WARNING] 2026-01-19 13:14:45 - django.request - Not Found: /gatorade
+[WARNING] 2026-01-19 13:15:37 - django.request - Not Found: /sibos
+[WARNING] 2026-01-19 13:16:14 - django.request - Not Found: /flushingbank
+[WARNING] 2026-01-19 13:16:31 - django.request - Not Found: /tdameritrade
+[WARNING] 2026-01-19 13:16:41 - django.request - Not Found: /apprizapaymovil
+[WARNING] 2026-01-19 13:16:55 - django.request - Not Found: /cimentashgrovenord
+[WARNING] 2026-01-19 13:17:13 - django.request - Not Found: /piadvisorsllc
+[WARNING] 2026-01-19 13:17:42 - django.request - Not Found: /globalindemnity
+[WARNING] 2026-01-19 13:17:58 - django.request - Not Found: /nipsco
+[WARNING] 2026-01-19 13:18:16 - django.request - Not Found: /edwardperron
+[WARNING] 2026-01-19 13:18:17 - django.request - Not Found: /dodgers
+[WARNING] 2026-01-19 13:18:34 - django.request - Not Found: /maxi
+[WARNING] 2026-01-19 13:18:53 - django.request - Not Found: /usffcu
+[WARNING] 2026-01-19 13:19:08 - django.request - Not Found: /crhprotiludom
+[WARNING] 2026-01-19 13:20:20 - django.request - Not Found: /nmls1730854
+[WARNING] 2026-01-19 13:21:41 - django.request - Not Found: /ubnmy
+[WARNING] 2026-01-19 13:21:43 - django.request - Not Found: /gbmanalytics
+[WARNING] 2026-01-19 13:22:02 - django.request - Not Found: /marriotts
+[WARNING] 2026-01-19 13:22:17 - django.request - Not Found: /luciddg
+[WARNING] 2026-01-19 13:22:32 - django.request - Not Found: /bancorp
+[WARNING] 2026-01-19 13:22:49 - django.request - Not Found: /libertytitle
+[WARNING] 2026-01-19 13:22:59 - django.request - Not Found: /informationforecast
+[WARNING] 2026-01-19 13:23:14 - django.request - Not Found: /recondotech
+[WARNING] 2026-01-19 13:23:31 - django.request - Not Found: /belgardhardscapes
+[WARNING] 2026-01-19 13:23:46 - django.request - Not Found: /sunnova
+[WARNING] 2026-01-19 13:24:26 - django.request - Not Found: /freedomcuinpa
+[WARNING] 2026-01-19 13:24:42 - django.request - Not Found: /farmermacboard
+[WARNING] 2026-01-19 13:25:07 - django.request - Not Found: /
+[WARNING] 2026-01-19 13:26:40 - django.request - Not Found: /wirexaccount
+[WARNING] 2026-01-19 13:26:43 - django.request - Not Found: /vestolen
+[WARNING] 2026-01-19 13:27:16 - django.request - Not Found: /sizeer
+[WARNING] 2026-01-19 13:27:33 - django.request - Not Found: /belgardproducts
+[WARNING] 2026-01-19 13:28:06 - django.request - Not Found: /crivo
+[WARNING] 2026-01-19 13:28:19 - django.request - Not Found: /amgetfs
+[WARNING] 2026-01-19 13:28:33 - django.request - Not Found: /steamboost
+[WARNING] 2026-01-19 13:29:04 - django.request - Not Found: /centralbankghana
+[WARNING] 2026-01-19 13:29:05 - django.request - Not Found: /tequins
+[WARNING] 2026-01-19 13:29:21 - django.request - Not Found: /swiftships
+[WARNING] 2026-01-19 13:29:55 - django.request - Not Found: /joeboxer
+[WARNING] 2026-01-19 13:30:14 - django.request - Not Found: /sargentdisc
+[WARNING] 2026-01-19 13:31:23 - django.request - Not Found: /toromont
+[WARNING] 2026-01-19 13:32:45 - django.request - Not Found: /latradeconnect
+[WARNING] 2026-01-19 13:33:01 - django.request - Not Found: /wakeortho
+[WARNING] 2026-01-19 13:33:14 - django.request - Not Found: /ppcblue
+[WARNING] 2026-01-19 13:33:33 - django.request - Not Found: /cnoocltd
+[WARNING] 2026-01-19 13:33:58 - django.request - Not Found: /x-elio
+[WARNING] 2026-01-19 13:34:17 - django.request - Not Found: /lifetimehealth
+[WARNING] 2026-01-19 13:34:37 - django.request - Not Found: /hargroveevent
+[WARNING] 2026-01-19 13:34:48 - django.request - Not Found: /itclondon
+[WARNING] 2026-01-19 13:35:03 - django.request - Not Found: /collectinsure
+[WARNING] 2026-01-19 13:35:37 - django.request - Not Found: /rosemeadoil
+[WARNING] 2026-01-19 13:35:39 - django.request - Not Found: /mod-sa
+[WARNING] 2026-01-19 13:36:48 - django.request - Not Found: /workathancockconcrete
+[WARNING] 2026-01-19 13:37:38 - django.request - Not Found: /uapflex
+[WARNING] 2026-01-19 13:38:09 - django.request - Not Found: /adaniports
+[WARNING] 2026-01-19 13:38:29 - django.request - Not Found: /balumba
+[WARNING] 2026-01-19 13:38:52 - django.request - Not Found: /sharegrid
+[WARNING] 2026-01-19 13:38:53 - django.request - Not Found: /accordant
+[WARNING] 2026-01-19 13:39:06 - django.request - Not Found: /bigrockproducts
+[WARNING] 2026-01-19 13:39:19 - django.request - Not Found: /commercialintlbank
+[WARNING] 2026-01-19 13:39:35 - django.request - Not Found: /sehhaty
+[WARNING] 2026-01-19 13:40:00 - django.request - Not Found: /dascomsystemsgroup
+[WARNING] 2026-01-19 13:40:15 - django.request - Not Found: /itceurope
+[WARNING] 2026-01-19 13:40:41 - django.request - Not Found: /mysenndunn
+[WARNING] 2026-01-19 13:40:42 - django.request - Not Found: /sallybeauty
+[WARNING] 2026-01-19 13:42:08 - django.request - Not Found: /halfendeha
+[WARNING] 2026-01-19 13:42:13 - django.request - Not Found: /activityinsights
+[WARNING] 2026-01-19 13:43:02 - django.request - Not Found: /fansedge
+[WARNING] 2026-01-19 13:43:37 - django.request - Not Found: /ncb-
+[WARNING] 2026-01-19 13:43:54 - django.request - Not Found: /bebtelovimab
+[WARNING] 2026-01-19 13:44:07 - django.request - Not Found: /newyorkpost
+[WARNING] 2026-01-19 13:44:22 - django.request - Not Found: /parity
+[WARNING] 2026-01-19 13:44:38 - django.request - Not Found: /oaktreecap
+[WARNING] 2026-01-19 13:44:53 - django.request - Not Found: /mortgagesplc
+[WARNING] 2026-01-19 13:45:05 - django.request - Not Found: /sirioaero
+[WARNING] 2026-01-19 13:45:40 - django.request - Not Found: /mmishk
+[WARNING] 2026-01-19 13:45:41 - django.request - Not Found: /appaggwv
+[WARNING] 2026-01-19 13:46:01 - django.request - Not Found: /copa-courier
+[WARNING] 2026-01-19 13:46:18 - django.request - Not Found: /opiapps
+[WARNING] 2026-01-19 13:46:32 - django.request - Not Found: /bancorpint
+[WARNING] 2026-01-19 13:47:46 - django.request - Not Found: /marlux
+[WARNING] 2026-01-19 13:48:34 - django.request - Not Found: /gucci
+[WARNING] 2026-01-19 13:49:05 - django.request - Not Found: /gcredbdc
+[WARNING] 2026-01-19 13:49:43 - django.request - Not Found: /satsure
+[WARNING] 2026-01-19 13:49:52 - django.request - Not Found: /waterfrontcity
+[WARNING] 2026-01-19 13:50:20 - django.request - Not Found: /guildmortgage
+[WARNING] 2026-01-19 13:50:21 - django.request - Not Found: /deskdrawerfoundation
+[WARNING] 2026-01-19 13:50:37 - django.request - Not Found: /recinsurance
+[WARNING] 2026-01-19 13:51:08 - django.request - Not Found: /nbcchicago
+[WARNING] 2026-01-19 13:51:22 - django.request - Not Found: /holophaneeclairage
+[WARNING] 2026-01-19 13:52:02 - django.request - Not Found: /jltpremierpensions
+[WARNING] 2026-01-19 13:52:04 - django.request - Not Found: /mfdgroup
+[WARNING] 2026-01-19 13:53:06 - django.request - Not Found: /bsig
+[WARNING] 2026-01-19 13:54:31 - django.request - Not Found: /qinetiq
+[WARNING] 2026-01-19 13:54:49 - django.request - Not Found: /crh-
+[WARNING] 2026-01-19 17:20:49 - django.request - Not Found: /
+[WARNING] 2026-01-19 17:20:50 - django.request - Not Found: /apps
+[WARNING] 2026-01-19 17:20:50 - django.request - Not Found: /api/action
+[WARNING] 2026-01-19 17:20:50 - django.request - Not Found: /api/actions
+[WARNING] 2026-01-19 17:20:50 - django.request - Not Found: /_next/data
+[WARNING] 2026-01-19 17:20:51 - django.request - Not Found: /
+[ERROR] 2026-01-19 18:33:23 - django.security.DisallowedHost - Invalid HTTP_HOST header: 'mail.jonas.marinho.nom.br'. You may need to add 'mail.jonas.marinho.nom.br' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mail.jonas.marinho.nom.br'. You may need to add 'mail.jonas.marinho.nom.br' to ALLOWED_HOSTS.
+[ERROR] 2026-01-19 18:33:28 - django.security.DisallowedHost - Invalid HTTP_HOST header: 'mail.jonas.marinho.nom.br'. You may need to add 'mail.jonas.marinho.nom.br' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mail.jonas.marinho.nom.br'. You may need to add 'mail.jonas.marinho.nom.br' to ALLOWED_HOSTS.
+[WARNING] 2026-01-19 18:40:05 - django.request - Not Found: /
+[WARNING] 2026-01-19 18:40:07 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-19 18:40:24 - django.request - Not Found: /
+[WARNING] 2026-01-19 18:40:26 - django.request - Not Found: /favicon.ico
+[ERROR] 2026-01-20 00:57:51 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-20 00:58:29 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[ERROR] 2026-01-20 01:33:19 - django.security.DisallowedHost - Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/.venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "/.venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/.venv/lib/python3.13/site-packages/django/http/request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '82.25.64.205:443'. You may need to add '82.25.64.205' to ALLOWED_HOSTS.
+[WARNING] 2026-01-20 02:40:20 - django.request - Not Found: /
+[WARNING] 2026-01-20 02:40:20 - django.request - Not Found: /
+[WARNING] 2026-01-20 02:40:22 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-20 02:40:22 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-23 11:05:26 - django.request - Not Found: /
+[WARNING] 2026-01-23 11:05:26 - django.request - Not Found: /favicon.ico
+[WARNING] 2026-01-23 11:05:30 - django.request - Not Found: /favicon.ico
