@@ -1,6 +1,5 @@
 import json
 import logging
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage
 from core.services.llm_provider import LLMProvider
 
@@ -128,9 +127,17 @@ class AgentRuntime:
             "type": "text",
             "text": user_text
         })
+        # Converte payload para string de forma segura
+        try:
+            content_str = json.dumps(content, ensure_ascii=False, indent=2)
+        except (TypeError, ValueError):
+            content_str = str(content)
+        # Escapa chaves para evitar conflito com template
+        content_str = content_str.replace("{", "{{").replace("}", "}}")
+
         messages = [
             ("system", system_text),
-            HumanMessage(content=content)
+            HumanMessage(content=content_str)
         ]
         logger.debug(f"Template base criado com {len(messages)} mensagens")
         
@@ -139,30 +146,45 @@ class AgentRuntime:
             schema_instruction = self._output_schema_instruction()
             messages.append(("system", schema_instruction))
             logger.debug(f"Instrução de schema adicionada: {schema_instruction[:100]}...")
-        
-        logger.debug("Criando ChatPromptTemplate")
-        prompt = ChatPromptTemplate.from_messages(messages)
-        
-        logger.debug("Formatando mensagens com valores reais")
-        formatted_messages = prompt.format_messages(
-            role=self.role,
-            system_prompt=self.system_prompt,
-            input_payload=str(input_payload)
-        )
-        
-        logger.debug(f"Mensagens formatadas: {len(formatted_messages)} no total")
-        return formatted_messages
+
+        return messages
 
     def _output_schema_instruction(self) -> str:
+        """
+        Gera instruções muito explícitas e assertivas para garantir
+        que o LLM siga o schema definido.
+        """
         logger.debug("Gerando instrução de output schema")
         logger.debug(f"Schema fields: {self.output_schema}")
+
+        # Cria exemplo de estrutura esperada com tipos
+        fields_description = []
+        example_values = {
+            "string": '"exemplo de texto"',
+            "number": '0.85',
+            "array": '["item1", "item2"]',
+            "boolean": 'true',
+            "object": '{"key": "value"}'
+        }
         
-        fields = '{{' + ", ".join(
-            f'"{key}": {value}'
-            for key, value in self.output_schema.items()
-        ) + '}}'
+        for key, value_type in self.output_schema.items():
+            example = example_values.get(value_type, '"valor"')
+            fields_description.append(f'  "{key}": {example}')
         
-        instruction = f"Responda EXCLUSIVAMENTE em JSON válido no seguinte formato: '{fields}'. Não inclua explicações, comentários ou texto fora do JSON."
+        fields_example = "{\n" + ",\n".join(fields_description) + "\n}"
+        
+        instruction = f"""CRITICAL: Your response MUST be ONLY valid JSON in this EXACT format:
+
+{fields_example}
+
+REQUIREMENTS:
+- Include ALL fields: {', '.join(self.output_schema.keys())}
+- Use correct types: {', '.join(f'{k}={v}' for k, v in self.output_schema.items())}
+- NO explanations, NO markdown, NO text outside JSON
+- Start with {{ and end with }}
+- Ensure valid JSON syntax
+
+If you include ANY text outside the JSON structure, the system will fail."""
         
         logger.debug(f"Instrução de schema gerada: {instruction}")
         return instruction
@@ -181,24 +203,42 @@ class AgentRuntime:
                 cleaned_content = '\n'.join(lines[1:-1]) if len(lines) > 2 else cleaned_content
                 logger.debug(f"Conteúdo após remoção de markdown: {cleaned_content[:200]}...")
             
+            cleaned_content = cleaned_content.strip()
             parsed = json.loads(cleaned_content)
             logger.info("JSON parseado com sucesso")
             logger.debug(f"JSON parseado: {parsed}")
             
-            # Valida campos esperados
-            expected_fields = set(self.output_schema.keys())
-            received_fields = set(parsed.keys())
+            # Validação: todas as chaves do schema devem estar presentes
+            missing_keys = set(self.output_schema.keys()) - set(parsed.keys())
+            if missing_keys:
+                return {
+                    "_error": "missing_required_fields",
+                    "missing_fields": list(missing_keys),
+                    "partial_output": parsed,
+                    "raw_output": content
+                }
             
-            if expected_fields != received_fields:
-                missing = expected_fields - received_fields
-                extra = received_fields - expected_fields
+            # Validação: tipos básicos
+            type_errors = []
+            for key, expected_type in self.output_schema.items():
+                actual_value = parsed.get(key)
                 
-                if missing:
-                    logger.warning(f"Campos esperados ausentes no JSON: {missing}")
-                if extra:
-                    logger.warning(f"Campos extras recebidos no JSON: {extra}")
-            else:
-                logger.debug("Todos os campos esperados estão presentes no JSON")
+                if expected_type == "number" and not isinstance(actual_value, (int, float)):
+                    type_errors.append(f"{key} should be number, got {type(actual_value).__name__}")
+                elif expected_type == "string" and not isinstance(actual_value, str):
+                    type_errors.append(f"{key} should be string, got {type(actual_value).__name__}")
+                elif expected_type == "array" and not isinstance(actual_value, list):
+                    type_errors.append(f"{key} should be array, got {type(actual_value).__name__}")
+                elif expected_type == "boolean" and not isinstance(actual_value, bool):
+                    type_errors.append(f"{key} should be boolean, got {type(actual_value).__name__}")
+            
+            if type_errors:
+                return {
+                    "_error": "type_mismatch",
+                    "type_errors": type_errors,
+                    "partial_output": parsed,
+                    "raw_output": content
+                }
             
             return parsed
             

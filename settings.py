@@ -169,6 +169,7 @@ SIMPLE_JWT = {
 }
 
 # Logging Configuration
+LOGGING_LEVEL  = 'DEBUG' if DEBUG else 'INFO'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -181,7 +182,7 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'INFO',
+            'level': LOGGING_LEVEL,
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
             'maxBytes': 1024 * 1024 * 10,  # 10MB
@@ -189,14 +190,14 @@ LOGGING = {
             'formatter': 'verbose',
         },
         'console': {
-            'level': 'INFO',
+            'level': LOGGING_LEVEL,
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
     },
     'root': {
         'handlers': ['file', 'console'],
-        'level': 'INFO',
+        'level': LOGGING_LEVEL,
     },
     'loggers': {
         'django': {
