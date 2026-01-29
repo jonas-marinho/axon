@@ -1,6 +1,6 @@
 import json
 import logging
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import HumanMessage
 from core.services.llm_provider import LLMProvider
 
 logger = logging.getLogger(__name__)
@@ -41,13 +41,25 @@ class AgentRuntime:
             raise
 
     def run(self, input_payload: dict) -> dict:
+        """
+        Executa o agente detectando automaticamente se há imagens.
+        
+        input_payload pode conter:
+        - Texto: {"product": "Curso Python"}
+        - Com imagens: {
+            "text": "Analise esta imagem",
+            "images": [{"data": "base64", "media_type": "image/jpeg"}]
+          }
+        - Base64 direto: {"image": "base64_string"}
+        """
+        has_images = self._detect_images(input_payload)
         logger.info(f"--- Iniciando execução do agent '{self.name}' ---")
         logger.debug(f"Input payload recebido: {input_payload}")
         
         # Constrói mensagens
         logger.debug("Construindo mensagens para o LLM")
         try:
-            messages = self._build_messages(input_payload)
+            messages = self._build_messages(input_payload, has_images)
             logger.debug(f"Total de mensagens construídas: {len(messages)}")
             for idx, msg in enumerate(messages, 1):
                 logger.debug(f"Mensagem {idx}: Tipo={type(msg).__name__}, Conteúdo preview={str(msg)[:100]}...")
@@ -92,12 +104,40 @@ class AgentRuntime:
             logger.info(f"Agent '{self.name}' executado com sucesso - Retornando texto puro")
             return result
 
-    def _build_messages(self, input_payload):
+    def _build_messages(self, input_payload, has_images):
         logger.debug("Montando template de mensagens")
+        content = []
+        # Adiciona as imagens, se houver
+        if has_images:
+            images = self._extract_images(input_payload)
+            for image in images:
+                content.append({
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:{image['media_type']};base64,{image['data']}"
+                    }
+                })
         
+        # System prompt
+        system_text = f"Atue como {self.role}. {self.system_prompt}"
+        # Extrair o texto
+        user_text = self._extract_text(input_payload)
+        # Construir as mensagens
+        content.append({
+            "type": "text",
+            "text": user_text
+        })
+        # Converte payload para string de forma segura
+        try:
+            content_str = json.dumps(content, ensure_ascii=False, indent=2)
+        except (TypeError, ValueError):
+            content_str = str(content)
+        # Escapa chaves para evitar conflito com template
+        content_str = content_str.replace("{", "{{").replace("}", "}}")
+
         messages = [
-            ("system", "Atue como {role}. {system_prompt}"),
-            ("human", "{input_payload}")
+            ("system", system_text),
+            HumanMessage(content=content_str)
         ]
         logger.debug(f"Template base criado com {len(messages)} mensagens")
         
@@ -106,30 +146,45 @@ class AgentRuntime:
             schema_instruction = self._output_schema_instruction()
             messages.append(("system", schema_instruction))
             logger.debug(f"Instrução de schema adicionada: {schema_instruction[:100]}...")
-        
-        logger.debug("Criando ChatPromptTemplate")
-        prompt = ChatPromptTemplate.from_messages(messages)
-        
-        logger.debug("Formatando mensagens com valores reais")
-        formatted_messages = prompt.format_messages(
-            role=self.role,
-            system_prompt=self.system_prompt,
-            input_payload=str(input_payload)
-        )
-        
-        logger.debug(f"Mensagens formatadas: {len(formatted_messages)} no total")
-        return formatted_messages
+
+        return messages
 
     def _output_schema_instruction(self) -> str:
+        """
+        Gera instruções muito explícitas e assertivas para garantir
+        que o LLM siga o schema definido.
+        """
         logger.debug("Gerando instrução de output schema")
         logger.debug(f"Schema fields: {self.output_schema}")
+
+        # Cria exemplo de estrutura esperada com tipos
+        fields_description = []
+        example_values = {
+            "string": '"exemplo de texto"',
+            "number": '0.85',
+            "array": '["item1", "item2"]',
+            "boolean": 'true',
+            "object": '{"key": "value"}'
+        }
         
-        fields = '{{' + ", ".join(
-            f'"{key}": {value}'
-            for key, value in self.output_schema.items()
-        ) + '}}'
+        for key, value_type in self.output_schema.items():
+            example = example_values.get(value_type, '"valor"')
+            fields_description.append(f'  "{key}": {example}')
         
-        instruction = f"Responda EXCLUSIVAMENTE em JSON válido no seguinte formato: '{fields}'. Não inclua explicações, comentários ou texto fora do JSON."
+        fields_example = "{\n" + ",\n".join(fields_description) + "\n}"
+        
+        instruction = f"""CRITICAL: Your response MUST be ONLY valid JSON in this EXACT format:
+
+{fields_example}
+
+REQUIREMENTS:
+- Include ALL fields: {', '.join(self.output_schema.keys())}
+- Use correct types: {', '.join(f'{k}={v}' for k, v in self.output_schema.items())}
+- NO explanations, NO markdown, NO text outside JSON
+- Start with {{ and end with }}
+- Ensure valid JSON syntax
+
+If you include ANY text outside the JSON structure, the system will fail."""
         
         logger.debug(f"Instrução de schema gerada: {instruction}")
         return instruction
@@ -148,24 +203,42 @@ class AgentRuntime:
                 cleaned_content = '\n'.join(lines[1:-1]) if len(lines) > 2 else cleaned_content
                 logger.debug(f"Conteúdo após remoção de markdown: {cleaned_content[:200]}...")
             
+            cleaned_content = cleaned_content.strip()
             parsed = json.loads(cleaned_content)
             logger.info("JSON parseado com sucesso")
             logger.debug(f"JSON parseado: {parsed}")
             
-            # Valida campos esperados
-            expected_fields = set(self.output_schema.keys())
-            received_fields = set(parsed.keys())
+            # Validação: todas as chaves do schema devem estar presentes
+            missing_keys = set(self.output_schema.keys()) - set(parsed.keys())
+            if missing_keys:
+                return {
+                    "_error": "missing_required_fields",
+                    "missing_fields": list(missing_keys),
+                    "partial_output": parsed,
+                    "raw_output": content
+                }
             
-            if expected_fields != received_fields:
-                missing = expected_fields - received_fields
-                extra = received_fields - expected_fields
+            # Validação: tipos básicos
+            type_errors = []
+            for key, expected_type in self.output_schema.items():
+                actual_value = parsed.get(key)
                 
-                if missing:
-                    logger.warning(f"Campos esperados ausentes no JSON: {missing}")
-                if extra:
-                    logger.warning(f"Campos extras recebidos no JSON: {extra}")
-            else:
-                logger.debug("Todos os campos esperados estão presentes no JSON")
+                if expected_type == "number" and not isinstance(actual_value, (int, float)):
+                    type_errors.append(f"{key} should be number, got {type(actual_value).__name__}")
+                elif expected_type == "string" and not isinstance(actual_value, str):
+                    type_errors.append(f"{key} should be string, got {type(actual_value).__name__}")
+                elif expected_type == "array" and not isinstance(actual_value, list):
+                    type_errors.append(f"{key} should be array, got {type(actual_value).__name__}")
+                elif expected_type == "boolean" and not isinstance(actual_value, bool):
+                    type_errors.append(f"{key} should be boolean, got {type(actual_value).__name__}")
+            
+            if type_errors:
+                return {
+                    "_error": "type_mismatch",
+                    "type_errors": type_errors,
+                    "partial_output": parsed,
+                    "raw_output": content
+                }
             
             return parsed
             
@@ -186,3 +259,55 @@ class AgentRuntime:
                 "raw_output": content,
                 "error_message": str(e)
             }
+    
+    def _detect_images(self, payload: dict) -> bool:
+        """
+        Detecta se o payload contém imagens em qualquer formato.
+        """
+        # Formato estruturado: {"images": [...]}
+        if "images" in payload and payload["images"]:
+            return True
+        
+        # Formato direto: {"image": "base64..."}
+        if "image" in payload and isinstance(payload["image"], str):
+            # Verifica se parece com base64 (string longa sem espaços)
+            if len(payload["image"]) > 100 and " " not in payload["image"]:
+                return True
+        
+        return False
+
+    def _extract_text(self, payload: dict) -> str:
+        """
+        Extrai o texto do payload, ignorando as imagens.
+        """
+        text_parts = []
+        
+        for key, value in payload.items():
+            if key in ["images", "image"]:
+                continue
+            
+            if isinstance(value, str):
+                text_parts.append(f"{key}: {value}")
+            else:
+                text_parts.append(f"{key}: {str(value)}")
+        
+        return "\n".join(text_parts) if text_parts else "Analise o conteúdo fornecido"
+        
+    def _extract_images(self, payload: dict) -> list:
+        """
+        Extrai imagens do payload em qualquer formato.
+        """
+        images = []
+        
+        # Formato estruturado: {"images": [...]}
+        if "images" in payload and isinstance(payload["images"], list):
+            images.extend(payload["images"])
+        
+        # Formato direto: {"image": "base64"}
+        elif "image" in payload and isinstance(payload["image"], str):
+            images.append({
+                "data": payload["image"],
+                "media_type": "image/jpeg"  # Assume JPEG por padrão
+            })
+        
+        return images

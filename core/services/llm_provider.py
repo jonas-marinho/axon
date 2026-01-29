@@ -17,7 +17,7 @@ class LLMProvider:
             return ChatOpenAI(
                 model=llm_config.get("model", "gpt-5-nano"),
                 temperature=llm_config.get("temperature", 0.7),
-                max_tokens=llm_config.get("max_tokens", 2**16),
+                max_tokens=llm_config.get("max_tokens", 2**10),
                 api_key=os.getenv('OPEN_API_KEY')
             )
 
