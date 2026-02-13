@@ -13,7 +13,7 @@ class TaskAdmin(admin.ModelAdmin):
             'fields': ('name', 'agent', 'description')
         }),
         ('Mapping Configuration', {
-            'fields': ('input_mapping', 'output_mapping'),
+            'fields': ('input_mapping', 'output_mapping', 'output_schema'),
             'classes': ('collapse',)
         }),
         ('Timestamps', {

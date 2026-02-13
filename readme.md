@@ -35,11 +35,6 @@ Agent.objects.create(
         "provider": "openai",
         "model": "gpt-4",
         "temperature": 0.3
-    },
-    output_schema={
-        "requirements": "array",
-        "complexity": "number",
-        "summary": "string"
     }
 )
 ```
@@ -58,6 +53,11 @@ Task.objects.create(
         "document": "input.document"  # Pega do input inicial
     },
     output_mapping={}  # Usa saída padrão
+    output_schema={
+        "requirements": "array",
+        "complexity": "number",
+        "summary": "string"
+    }
 )
 ```
 

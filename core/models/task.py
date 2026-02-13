@@ -16,6 +16,12 @@ class Task(models.Model):
 
     # Mapeia output do agente -> state
     output_mapping = models.JSONField(null=True, blank=True)
+    
+    output_schema = models.JSONField(
+        null=True,
+        blank=True,
+        help_text="Define o formato de saída. Se None, retorna texto puro."
+    )
 
     description = models.TextField(null=True, blank=True)
 
