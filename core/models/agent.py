@@ -11,7 +11,6 @@ class Agent(models.Model):
     )
     system_prompt = models.TextField()
     tools_config = models.JSONField(null=True, blank=True)
-    output_schema = models.JSONField(null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     version = models.PositiveIntegerField(default=1)

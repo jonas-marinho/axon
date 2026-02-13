@@ -192,7 +192,7 @@ class ProcessExecutor:
 
         # Cria o runtime do agent
         logger.debug(f"Criando runtime do agent '{task.agent.name}'")
-        agent_runtime = self.agent_factory.create(task.agent)
+        agent_runtime = self.agent_factory.create(task.agent, output_schema=task.output_schema)
 
         # Executa o agent
         logger.info(f"Invocando agent '{task.agent.name}' via LLM")

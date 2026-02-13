@@ -10,14 +10,10 @@ class AgentAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Basic Info', {
-            'fields': ('name', 'role', 'system_prompt')
+            'fields': ('name', 'role', 'system_prompt', 'tools_config')
         }),
         ('LLM Configuration', {
             'fields': ('llm_config',)
-        }),
-        ('Output & Tools', {
-            'fields': ('output_schema', 'tools_config'),
-            'classes': ('collapse',)
         }),
         ('Version Control', {
             'fields': ('version', 'is_active')

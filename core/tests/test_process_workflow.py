@@ -26,11 +26,7 @@ class ProcessFlowIntegrationTest(TestCase):
                 "provider": "openai",
                 "model": "gpt-5-nano",
                 "temperature": 0.7,
-            },
-            output_schema={
-                "text": "string",
-                "confidence": "number",
-            },
+            }
         )
 
         # ---------- Tasks ----------
@@ -40,7 +36,11 @@ class ProcessFlowIntegrationTest(TestCase):
             input_mapping={
                 "product": "input.product"
             },
-            output_mapping={}
+            output_mapping={},
+            output_schema={
+                "text": "string",
+                "confidence": "number",
+            }
         )
 
         self.publish_copy = Task.objects.create(
@@ -49,7 +49,11 @@ class ProcessFlowIntegrationTest(TestCase):
             input_mapping={
                 "text": "results.generate_copy.text"
             },
-            output_mapping={}
+            output_mapping={},
+            output_schema={
+                "text": "string",
+                "confidence": "number",
+            }
         )
 
         self.revise_copy = Task.objects.create(
@@ -58,7 +62,11 @@ class ProcessFlowIntegrationTest(TestCase):
             input_mapping={
                 "text": "results.generate_copy.text"
             },
-            output_mapping={}
+            output_mapping={},
+            output_schema={
+                "text": "string",
+                "confidence": "number",
+            }
         )
 
         # ---------- Process ----------

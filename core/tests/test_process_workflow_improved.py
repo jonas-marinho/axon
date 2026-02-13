@@ -29,11 +29,7 @@ class ImprovedProcessFlowTest(TestCase):
                 "provider": "openai",
                 "model": "gpt-4",  # Modelo maior = melhor adherência ao schema
                 "temperature": 0.3,  # Baixa temperatura = mais determinístico
-            },
-            output_schema={
-                "text": "string",
-                "confidence": "number",
-            },
+            }
         )
 
         # ---------- Tasks ----------
@@ -43,7 +39,11 @@ class ImprovedProcessFlowTest(TestCase):
             input_mapping={
                 "product": "input.product"
             },
-            output_mapping={}
+            output_mapping={},
+            output_schema={
+                "text": "string",
+                "confidence": "number",
+            }
         )
 
         self.publish_copy = Task.objects.create(
@@ -52,7 +52,11 @@ class ImprovedProcessFlowTest(TestCase):
             input_mapping={
                 "text": "results.generate_copy.text"
             },
-            output_mapping={}
+            output_mapping={},
+            output_schema={
+                "text": "string",
+                "confidence": "number",
+            }
         )
 
         self.revise_copy = Task.objects.create(
@@ -61,7 +65,11 @@ class ImprovedProcessFlowTest(TestCase):
             input_mapping={
                 "text": "results.generate_copy.text"
             },
-            output_mapping={}
+            output_mapping={},
+            output_schema={
+                "text": "string",
+                "confidence": "number",
+            }
         )
 
         # ---------- Process ----------

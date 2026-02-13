@@ -24,11 +24,6 @@ class VisionSupportTest(TestCase):
                 "provider": "openai",
                 "model": "gpt-4o",
                 "temperature": 0.3,
-            },
-            output_schema={
-                "description": "string",
-                "elements": "array",
-                "confidence": "number"
             }
         )
         
@@ -51,6 +46,11 @@ class VisionSupportTest(TestCase):
             input_mapping={
                 "text": "input.text",
                 "images": "input.images"
+            },
+            output_schema={
+                "description": "string",
+                "elements": "array",
+                "confidence": "number"
             }
         )
         
@@ -59,7 +59,8 @@ class VisionSupportTest(TestCase):
             agent=self.text_agent,
             input_mapping={
                 "text": "input.text"
-            }
+            },
+            output_schema=None
         )
         
         # Processes
