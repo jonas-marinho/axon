@@ -1,7 +1,6 @@
 import json
 import logging
-from langchain_core.messages import HumanMessage
-from core.services.llm_provider import LLMProvider
+from core.services.llm_provider import LLMProvider, Message
 
 logger = logging.getLogger(__name__)
 
@@ -45,18 +44,18 @@ class AgentRuntime:
         Executa o agente detectando automaticamente se há imagens.
         
         input_payload pode conter:
-        - Texto: {"product": "Curso Python"}
+        - Texto puro: {"product": "Curso Python"}
         - Com imagens: {
             "text": "Analise esta imagem",
             "images": [{"data": "base64", "media_type": "image/jpeg"}]
           }
         - Base64 direto: {"image": "base64_string"}
         """
-        has_images = self._detect_images(input_payload)
         logger.info(f"--- Iniciando execução do agent '{self.name}' ---")
         logger.debug(f"Input payload recebido: {input_payload}")
         
         # Constrói mensagens
+        has_images = self._detect_images(input_payload)
         logger.debug("Construindo mensagens para o LLM")
         try:
             messages = self._build_messages(input_payload, has_images)
@@ -69,18 +68,15 @@ class AgentRuntime:
 
         # Invoca LLM
         logger.info(f"Invocando LLM para agent '{self.name}'")
-        logger.debug(f"Modelo configurado: {self.llm.model_name if hasattr(self.llm, 'model_name') else 'N/A'}") 
+        logger.debug(f"Modelo configurado: {self.llm.model_name if hasattr(self.llm, 'model_name') else 'N/A'}")
         
         try:
-            response = self.llm.invoke(messages)
+            raw_content = self.llm.invoke(messages)
             logger.info(f"LLM respondeu com sucesso para agent '{self.name}'")
-            logger.debug(f"Tipo de resposta: {type(response).__name__}")
+            logger.debug(f"Tipo de resposta: {type(raw_content).__name__}")
         except Exception as e:
             logger.error(f"Erro ao invocar LLM para agent '{self.name}': {str(e)}", exc_info=True)
             raise
-
-        # Extrai conteúdo
-        raw_content = response.content
         logger.debug(f"Conteúdo bruto recebido (primeiros 200 chars): {raw_content[:200]}...")
         logger.debug(f"Tamanho total do conteúdo: {len(raw_content)} caracteres")
 
@@ -104,50 +100,55 @@ class AgentRuntime:
             logger.info(f"Agent '{self.name}' executado com sucesso - Retornando texto puro")
             return result
 
-    def _build_messages(self, input_payload, has_images):
-        logger.debug("Montando template de mensagens")
-        content = []
-        # Adiciona as imagens, se houver
-        if has_images:
-            images = self._extract_images(input_payload)
-            for image in images:
-                content.append({
-                    "type": "image_url",
-                    "image_url": {
-                        "url": f"data:{image['media_type']};base64,{image['data']}"
-                    }
-                })
+    def _build_messages(self, input_payload: dict, has_images: bool) -> list[Message]:
+        """
+        Monta a lista de Message agnósticos que serão enviados ao provider.
+
+        Estrutura:
+        1. system  — persona + prompt do agente
+        2. user    — conteúdo do input (texto e/ou imagens)
+        3. system  — instrução de output schema (quando definido)
+        """
+        messages = []
         
-        # System prompt
+        # 1. System: persona
         system_text = f"Atue como {self.role}. {self.system_prompt}"
-        # Extrair o texto
-        user_text = self._extract_text(input_payload)
-        # Construir as mensagens
-        content.append({
-            "type": "text",
-            "text": user_text
-        })
-        # Converte payload para string de forma segura
-        try:
-            content_str = json.dumps(content, ensure_ascii=False, indent=2)
-        except (TypeError, ValueError):
-            content_str = str(content)
-        # Escapa chaves para evitar conflito com template
-        content_str = content_str.replace("{", "{{").replace("}", "}}")
+        messages.append(Message(role=Message.SYSTEM, content=system_text))
 
-        messages = [
-            ("system", system_text),
-            HumanMessage(content=content_str)
-        ]
-        logger.debug(f"Template base criado com {len(messages)} mensagens")
-        
+        # 2. User: input (texto e/ou imagens)
+        user_content = self._build_user_content(input_payload, has_images)
+        messages.append(Message(role=Message.USER, content=user_content))
+
+        # 3. System: instrução de schema (opcional)
         if self.output_schema:
-            logger.debug("Adicionando instrução de output schema")
             schema_instruction = self._output_schema_instruction()
-            messages.append(("system", schema_instruction))
-            logger.debug(f"Instrução de schema adicionada: {schema_instruction[:100]}...")
+            messages.append(Message(role=Message.SYSTEM, content=schema_instruction))
 
+        logger.debug(f"{len(messages)} mensagens construídas para o LLM")
         return messages
+
+    def _build_user_content(self, input_payload: dict, has_images: bool):
+        """
+        Retorna o conteúdo do usuário:
+        - str  → se não houver imagens
+        - list → se houver imagens (formato multimodal)
+        """
+        user_text = self._extract_text(input_payload)
+
+        if not has_images:
+            return user_text
+
+        # Multimodal: texto primeiro, imagens depois
+        content = []
+        content.append({"type": "text", "text": user_text})
+        for image in self._extract_images(input_payload):
+            content.append({
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:{image['media_type']};base64,{image['data']}"
+                },
+            })
+        return content
 
     def _output_schema_instruction(self) -> str:
         """
