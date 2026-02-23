@@ -1,15 +1,11 @@
 from django.db import models
 
-class TaskExecution(models.Model):
-    process_execution = models.ForeignKey(
-        "ProcessExecution",
-        on_delete=models.CASCADE,
-        related_name="task_executions"
-    )
 
+class TaskExecution(models.Model):
     task = models.ForeignKey(
         "Task",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="executions"
     )
 
     input_payload = models.JSONField()
@@ -31,5 +27,4 @@ class TaskExecution(models.Model):
     error = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.task.name} (Exec {self.process_execution.id})"
-
+        return f"{self.task.name} (Exec {self.id})"
