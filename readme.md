@@ -1,30 +1,31 @@
 # Axon
 
-**Axon** é um motor de orquestração de agentes de IA orientado a dados, projetado para permitir a criação, edição e execução de workflows de agentes **sem alteração de código**.
+**Axon** é um motor de execução de agentes de IA orientado a dados, projetado para permitir a criação, edição e execução de agentes **sem alteração de código**.
 
 ## 🎯 O que é o Axon?
 
-Imagine que você precisa criar um fluxo de trabalho onde um agente de IA:
-1. Analisa um documento de requisitos de um cliente
-2. Extrai as informações principais e avalia a complexidade
-3. Se a complexidade for baixa (≤ 3), gera automaticamente uma proposta técnica
-4. Se for alta (> 3), encaminha para um especialista revisar os requisitos
+Imagine que você precisa que um agente de IA:
+1. Receba um documento de requisitos de um cliente
+2. Extraia as informações principais e avalie a complexidade
+3. Retorne um output estruturado e rastreável
 
-Com Axon, você **define esse fluxo inteiro no banco de dados** — incluindo os agentes, as tarefas, as condições e as transições. Nenhuma linha de código precisa ser modificada para criar ou alterar esse comportamento.
+Com Axon, você **define esse agente inteiro no banco de dados** — incluindo o modelo de LLM, o prompt, o schema de saída e as permissões de acesso. Nenhuma linha de código precisa ser modificada para criar ou alterar esse comportamento.
 
 ## 🧩 Como funciona?
 
 ### Arquitetura Conceitual
 
-O Axon organiza a execução de agentes em 4 camadas principais:
+O Axon organiza a execução de agentes em 3 camadas principais:
 
-![Arquitetura Conceitual do Axon](./docs/architecture-diagram.svg)
+```
+Tasks  →  Agents  →  LLM Provider
+```
 
 ### Componentes Principais
 
 #### 1. **Agent** — A Definição da Inteligência
 
-Um Agent é uma configuração que define **como** um agente de IA deve se comportar:
+Um Agent configura **como** um agente de IA deve se comportar:
 
 ```python
 Agent.objects.create(
@@ -33,26 +34,25 @@ Agent.objects.create(
     system_prompt="Você é um analista técnico especializado em extrair e avaliar requisitos de projetos de software.",
     llm_config={
         "provider": "openai",
-        "model": "gpt-4",
+        "model": "gpt-4o",
         "temperature": 0.3
     }
 )
 ```
 
-**Importante**: Um Agent é apenas uma definição — ele não executa nada sozinho.
+> Um Agent é apenas uma definição — ele não executa nada sozinho.
 
 #### 2. **Task** — A Unidade de Execução
 
-Uma Task conecta um Agent a um contexto de execução específico:
+Uma Task conecta um Agent a um contexto de execução específico, definindo como os dados entram e saem:
 
 ```python
 Task.objects.create(
     name="analyze_requirements",
     agent=requirements_analyzer,
     input_mapping={
-        "document": "input.document"  # Pega do input inicial
+        "document": "input.document"  # Resolve a partir do payload recebido
     },
-    output_mapping={}  # Usa saída padrão
     output_schema={
         "requirements": "array",
         "complexity": "number",
@@ -61,52 +61,31 @@ Task.objects.create(
 )
 ```
 
-**Mapeamento de Dados**:
-- `input_mapping`: Define como os dados do estado global são passados para o agent
-- `output_mapping`: Define como a saída do agent é estruturada no estado
+**Mapeamento de Dados:**
+- `input_mapping`: Define como o payload recebido é passado ao agent. O caminho `"input.document"` resolve o campo `document` do payload de entrada.
+- `output_schema`: Define e valida o formato estruturado de saída do agent. Se `None`, retorna texto puro.
 
-#### 3. **Process** — O Workflow Orquestrado
+#### 3. **TaskPermission** — Controle de Acesso
 
-Um Process define o fluxo de execução completo:
-
-```python
-process = Process.objects.create(
-    name="ProposalGenerationProcess",
-    entry_task=analyze_requirements  # Por onde começar
-)
-```
-
-#### 4. **ProcessTransition** — As Rotas Condicionais
-
-Transitions definem **quando** e **para onde** o fluxo deve ir:
+Cada Task tem uma permissão associada, criada automaticamente ao criar a Task:
 
 ```python
-# Se complexidade <= 3 → gera proposta automaticamente
-ProcessTransition.objects.create(
-    process=process,
-    from_task=analyze_requirements,
-    to_task=generate_proposal,
-    condition="results.analyze_requirements.complexity <= 3",
-    order=1
-)
-
-# Se complexidade > 3 → encaminha para especialista
-ProcessTransition.objects.create(
-    process=process,
-    from_task=analyze_requirements,
-    to_task=escalate_to_specialist,
-    condition="results.analyze_requirements.complexity > 3",
-    order=2
-)
+task.permission.access_type = 'restricted'  # Padrão
+task.permission.allowed_users.add(user)
+task.permission.save()
 ```
+
+| Tipo | Quem pode acessar |
+|------|-------------------|
+| `restricted` | Apenas users/groups listados explicitamente (e superusers) |
+| `public` | Qualquer usuário autenticado |
+| `open` | Todos, incluindo não autenticados |
 
 ### Fluxo de Execução
 
-Quando você executa um processo:
-
 ```python
-executor = ProcessExecutor("ProposalGenerationProcess")
-result = executor.execute(
+executor = TaskExecutor(task_id=1)
+output = executor.execute(
     input_payload={
         "document": "Cliente precisa de um sistema de gerenciamento de estoque..."
     }
@@ -115,172 +94,150 @@ result = executor.execute(
 
 Internamente, o Axon:
 
-1. **Carrega o Process** do banco de dados
-2. **Inicia pela entry_task** (analyze_requirements)
-3. **Resolve o input_mapping** para construir o input do agent
-4. **Executa o Agent** através do LLM configurado
-5. **Armazena o resultado** no estado global
-6. **Avalia as transitions** para determinar a próxima task
-7. **Repete o processo** até não haver mais transições válidas
-8. **Persiste toda a execução** para auditoria e análise
+1. **Carrega a Task** do banco de dados
+2. **Resolve o `input_mapping`** para construir o input do agent
+3. **Executa o Agent** através do LLM configurado
+4. **Valida o output** contra o `output_schema`
+5. **Persiste o `TaskExecution`** com input, output, status e timestamps
 
-### Estado Global
+### Output Estruturado
 
-Durante a execução, o Axon mantém um estado compartilhado:
+Quando `output_schema` está definido, o Axon instrui o LLM a responder em JSON e valida a resposta:
 
 ```json
 {
-  "input": {
-    "document": "Cliente precisa de um sistema de gerenciamento de estoque..."
-  },
-  "results": {
-    "analyze_requirements": {
-      "requirements": [
-        "Controle de entrada e saída",
-        "Relatórios em tempo real",
-        "Integração com ERP"
-      ],
-      "complexity": 5,
-      "summary": "Sistema de média complexidade com integrações"
-    },
-    "escalate_to_specialist": {
-      "status": "escalated",
-      "specialist_id": "SP-001"
-    }
-  },
-  "meta": {}
+  "requirements": ["Controle de estoque", "Relatórios em tempo real"],
+  "complexity": 4,
+  "summary": "Sistema de média complexidade"
 }
 ```
 
-Esse estado é:
-- **Serializável**: Pode ser salvo e recuperado
-- **Rastreável**: Histórico completo de execução
-- **Compartilhado**: Todas as tasks acessam o mesmo estado
+Se o LLM não seguir o schema, o output retorna com um campo `_error` descrevendo o problema (`missing_required_fields`, `type_mismatch`, `invalid_json`).
 
-## 🔧 Integração com LangChain/LangGraph
+### Rastreabilidade
 
-O Axon **não reimplementa** funcionalidades de LLM — ele **orquestra** ferramentas existentes:
-
-| Camada | Responsabilidade | Tecnologia |
-|--------|------------------|------------|
-| Definição de Agentes | Models Django | Django ORM |
-| Criação de Runtimes | AgentFactory | Python |
-| Execução de Agentes | AgentRuntime | LangChain |
-| Orquestração | ProcessExecutor | Python + Transitions |
-| Construção de Grafos | GraphBuilder | LangGraph (futuro) |
-
-## 📊 Rastreabilidade e Auditoria
-
-Toda execução é persistida:
+Toda execução é persistida automaticamente:
 
 ```python
-ProcessExecution  # Registro completo da execução
+TaskExecution
+  ├── task
   ├── input_payload
-  ├── state (estado final)
-  ├── status (running/completed/failed)
-  └── TaskExecution[] (histórico de cada task)
-        ├── input_payload
-        ├── output_payload
-        ├── started_at
-        └── finished_at
+  ├── output_payload
+  ├── status          # running | completed | failed
+  ├── error           # preenchido apenas em caso de falha
+  ├── started_at
+  └── finished_at
 ```
 
-Isso permite:
-- **Replay** de execuções
-- **Debugging** de fluxos complexos
-- **Análise** de performance
-- **Auditoria** completa
+## 🔧 Suporte a Visão (Multimodal)
+
+Tasks com agents de modelos multimodais (ex: `gpt-4o`) suportam imagens automaticamente.
+
+**Formato estruturado:**
+```json
+{
+  "text": "Descreva esta imagem",
+  "images": [
+    {"data": "<base64>", "media_type": "image/png"}
+  ]
+}
+```
+
+**Formato simples:**
+```json
+{
+  "text": "Descreva esta imagem",
+  "image": "<base64>"
+}
+```
+
+Tasks com modelos sem suporte a visão ignoram os campos de imagem graciosamente.
 
 ## 🚀 API REST
 
-Execute processos via HTTP:
-
+**Autenticação (JWT):**
 ```bash
-POST /api/v1/processes/1/execute/
+POST /api/v1/auth/token/
+POST /api/v1/auth/token/refresh/
+POST /api/v1/auth/token/verify/
+```
+
+**Tasks:**
+```bash
+GET  /api/v1/tasks/
+POST /api/v1/tasks/{task_id}/execute/
+GET  /api/v1/tasks/{task_id}/executions/
+```
+
+**Execuções:**
+```bash
+GET  /api/v1/executions/{execution_id}/
+```
+
+**Exemplo de execução:**
+```bash
+POST /api/v1/tasks/1/execute/
+Authorization: Bearer <token>
+
 {
-  "document": "Cliente precisa de um sistema de gerenciamento de estoque com integração ERP..."
+  "document": "Cliente precisa de um sistema de gerenciamento de estoque..."
 }
 ```
 
-Consulte execuções:
+## 🛠️ Tecnologias
 
-```bash
-GET /api/v1/processes/1/executions/
-GET /api/v1/executions/123/
-GET /api/v1/executions/123/tasks/
+- **Django 6.0** — Framework web e ORM
+- **Django REST Framework** — API REST
+- **Simple JWT** — Autenticação
+- **OpenAI / Anthropic / Grok / Gemini** — Providers de LLM
+- **MySQL** — Persistência
+
+## 💡 Providers de LLM Suportados
+
+| Provider | Chave no `.env` |
+|----------|-----------------|
+| OpenAI | `OPENAI_API_KEY` |
+| Anthropic | `ANTHROPIC_API_KEY` |
+| Grok (xAI) | `XAI_API_KEY` |
+| Gemini | `GEMINI_API_KEY` |
+
+Configuração via `llm_config` no Agent:
+```python
+llm_config = {
+    "provider": "anthropic",
+    "model": "claude-opus-4-6",
+    "temperature": 0.7,
+    "max_tokens": 1024
+}
 ```
-
-## 💡 Princípios de Design
-
-### 1. **Data-Driven**
-Comportamento é configuração, não código.
-
-### 2. **Separation of Concerns**
-- Models: Definição e persistência
-- Services: Lógica de execução
-- API: Interface externa
-
-### 3. **Versionamento**
-Agents e Processes são versionados — mudanças não quebram execuções anteriores.
-
-### 4. **Estado Explícito**
-Todo estado é serializável e rastreável.
-
-### 5. **Composição**
-Tasks e Agents são reutilizáveis em múltiplos processos.
 
 ## 🗂️ Estrutura do Projeto
 
 ```
 axon/
 ├── core/
-│   ├── models/              # Definições de dados
+│   ├── models/
 │   │   ├── agent.py
 │   │   ├── task.py
-│   │   ├── process.py
-│   │   ├── process_transition.py
-│   │   ├── process_execution.py
-│   │   └── task_execution.py
+│   │   ├── task_execution.py
+│   │   └── task_permission.py
 │   │
-│   ├── services/            # Lógica de execução
+│   ├── services/
 │   │   ├── agent_factory.py
 │   │   ├── agent_runtime.py
-│   │   ├── process_executor.py
-│   │   ├── condition_evaluator.py
-│   │   ├── mapping_resolver.py
+│   │   ├── task_executor.py
 │   │   └── llm_provider.py
 │   │
-│   └── api/                 # Interface HTTP
+│   └── api/
 │       ├── views.py
 │       ├── serializers.py
+│       ├── permissions.py
 │       └── urls.py
 │
 ├── settings.py
 ├── urls.py
 └── manage.py
 ```
-
-## 🎯 Casos de Uso
-
-### Workflows de Conteúdo
-- Geração → Revisão → Publicação
-- Criação → Validação de qualidade → Distribuição
-
-### Processamento de Dados
-- Extração → Classificação → Enriquecimento
-- Análise → Decisão → Ação
-
-### Automação de Negócios
-- Triagem de tickets → Roteamento → Resolução
-- Análise de leads → Qualificação → Encaminhamento
-
-## 🛠️ Tecnologias
-
-- **Django 6.0**: Framework web e ORM
-- **LangChain**: Integração com LLMs
-- **LangGraph**: Orquestração de grafos (futuro)
-- **MySQL**: Persistência
-- **Django REST Framework**: API
 
 ## 📦 Instalação
 
@@ -305,42 +262,51 @@ python manage.py runserver
 ## 🧪 Testes
 
 ```bash
-python manage.py test core.tests.test_process_workflow
+# Permissões
+python manage.py test core.tests.test_permissions
+
+# Execução de tasks
+python manage.py test core.tests.test_task_workflow
+
+# Validação robusta de schema
+python manage.py test core.tests.test_task_workflow_improved
+
+# Suporte a visão
+python manage.py test core.tests.test_vision_support
 ```
+
+> Os testes de execução e visão realizam chamadas reais à API do LLM. Certifique-se de que a variável de ambiente correspondente está configurada no `.env`.
+
+## 🎯 Casos de Uso
+
+- **Análise de documentos** — extração de requisitos, resumos, classificações
+- **Geração de conteúdo** — copies, descrições, e-mails
+- **Análise de imagens** — descrição visual, extração de dados, comparações
+- **Processamento de dados** — classificação, enriquecimento, validação
+
+## 💡 Princípios de Design
+
+**Data-Driven** — Comportamento é configuração, não código.
+
+**Separation of Concerns** — Models definem e persistem; Services executam; API expõe.
+
+**Estado Explícito** — Toda execução é rastreável e auditável.
+
+**Composição** — Agents são reutilizáveis em múltiplas Tasks.
 
 ## 🔮 Roadmap
 
+- [ ] Execução assíncrona (Celery)
+- [ ] Orquestração de workflows multi-task
 - [ ] Interface web para configuração visual
-- [ ] Suporte a execução assíncrona (Celery)
 - [ ] Observabilidade avançada (traces, métricas)
-- [ ] Suporte a múltiplos LLM providers
 - [ ] Sistema de plugins para ferramentas customizadas
-- [ ] Editor visual de workflows
-- [ ] Templates de processos comuns
-
-## 📝 Filosofia
-
-> **"Código define capacidades. Banco de dados define comportamento."**
-
-O Axon existe para que você nunca precise alterar código para mudar como seus agentes funcionam. Toda a inteligência do negócio vive nos dados, não no código-fonte.
+- [ ] Templates de tasks comuns
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a **MIT License** - veja o arquivo [license.txt](./license.txt) para mais detalhes.
-
-A licença MIT permite que você:
-- ✅ Use o software comercialmente
-- ✅ Modifique o código
-- ✅ Distribua cópias
-- ✅ Use de forma privada
-- ✅ Integre em projetos proprietários
-
-**Única exigência**: Manter o aviso de copyright e a licença em todas as cópias.
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Por favor, abra uma issue antes de criar um PR para discussão.
+Este projeto está licenciado sob a **MIT License** — veja o arquivo [license.txt](./license.txt) para mais detalhes.
 
 ---
 
-**Axon** — Orquestração de agentes de IA orientada a dados.
+**Axon** — Execução de agentes de IA orientada a dados.
