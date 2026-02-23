@@ -5,66 +5,51 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from core.api.views import (
-    ProcessListAPIView,
-    ExecuteProcessAPIView,
-    ProcessExecutionDetailAPIView,
-    ProcessExecutionsAPIView,
-    ExecutionTasksAPIView,
+    TaskListAPIView,
+    ExecuteTaskAPIView,
+    TaskExecutionsAPIView,
+    ExecutionDetailAPIView,
 )
 
 urlpatterns = [
-    # ========== Authentication Endpoints ==========
-    # Obter token (login)
+    # ========== Authentication ==========
     path(
         "auth/token/",
         TokenObtainPairView.as_view(),
         name="token_obtain_pair"
     ),
-    
-    # Refresh token
     path(
         "auth/token/refresh/",
         TokenRefreshView.as_view(),
         name="token_refresh"
     ),
-    
-    # Verificar se token é válido
     path(
         "auth/token/verify/",
         TokenVerifyView.as_view(),
         name="token_verify"
     ),
-    
-    # ========== Process Endpoints ==========
-    # Listar processos acessíveis
+
+    # ========== Tasks ==========
     path(
-        "processes/",
-        ProcessListAPIView.as_view(),
-        name="process_list"
+        "tasks/",
+        TaskListAPIView.as_view(),
+        name="task_list"
     ),
-    
-    # ========== Process Execution Endpoints ==========
     path(
-        "processes/<int:process_id>/execute/",
-        ExecuteProcessAPIView.as_view(),
-        name="execute_process"
+        "tasks/<int:task_id>/execute/",
+        ExecuteTaskAPIView.as_view(),
+        name="execute_task"
     ),
-    
+    path(
+        "tasks/<int:task_id>/executions/",
+        TaskExecutionsAPIView.as_view(),
+        name="task_executions"
+    ),
+
+    # ========== Executions ==========
     path(
         "executions/<int:execution_id>/",
-        ProcessExecutionDetailAPIView.as_view(),
+        ExecutionDetailAPIView.as_view(),
         name="execution_detail"
-    ),
-    
-    path(
-        "processes/<int:process_id>/executions/",
-        ProcessExecutionsAPIView.as_view(),
-        name="process_executions"
-    ),
-    
-    path(
-        "executions/<int:execution_id>/tasks/",
-        ExecutionTasksAPIView.as_view(),
-        name="execution_tasks"
     ),
 ]

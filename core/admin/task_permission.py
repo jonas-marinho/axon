@@ -1,18 +1,19 @@
 from django.contrib import admin
-from core.models import ProcessPermission
+from core.models import TaskPermission
 
-@admin.register(ProcessPermission)
-class ProcessPermissionAdmin(admin.ModelAdmin):
-    list_display = ('process', 'access_type', 'created_at')
+
+@admin.register(TaskPermission)
+class TaskPermissionAdmin(admin.ModelAdmin):
+    list_display = ('task', 'access_type', 'created_at')
     list_filter = ('access_type',)
-    search_fields = ('process__name',)
+    search_fields = ('task__name',)
     readonly_fields = ('created_at', 'updated_at')
-    
+
     filter_horizontal = ('allowed_users', 'allowed_groups')
-    
+
     fieldsets = (
-        ('Process', {
-            'fields': ('process',)
+        ('Task', {
+            'fields': ('task',)
         }),
         ('Access Control', {
             'fields': ('access_type',)
